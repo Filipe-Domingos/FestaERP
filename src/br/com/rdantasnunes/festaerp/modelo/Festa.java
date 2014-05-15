@@ -3,12 +3,19 @@ package br.com.rdantasnunes.festaerp.modelo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
+
+@Entity
 public class Festa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
 	private Long id;
 	
+	@Index
 	private String titulo;
 	
 	private Date dataInicio;

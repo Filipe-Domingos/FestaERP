@@ -1,6 +1,6 @@
 package br.com.rdantasnunes.festaerp.idao;
 
-import br.com.rdantasnunes.festaerp.modelo.Produto;
+import br.com.rdantasnunes.festaerp.modelo.Venda;
 
 /**
  * 
@@ -8,11 +8,11 @@ import br.com.rdantasnunes.festaerp.modelo.Produto;
  * 
  * @author Rodrigo Dantas Nunes - http://www.linkedin.com/in/rdantasnunes - rdantasnunes(at)gmail(dot)com
  * 
- * Interface DAO (Data Access Object) da entidade Produto. Deve ser usada para declarar funcoes especificas 
+ * Interface DAO (Data Access Object) da entidade Venda. Deve ser usada para declarar funcoes especificas 
  * da referida entidade.
  * PS: Esta interface herda da interface pai os metodos: List<T> find() / T find(Long id) / Long insert(T t) / void delete(T t)
  * 
  */
-public interface ProdutoDao extends Dao<Produto> {
+public interface VendaDao extends Dao<Venda> {
 
 }

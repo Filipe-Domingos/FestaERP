@@ -7,6 +7,15 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+/**
+ * 
+ * Created on 14/05/2014
+ * 
+ * @author Rodrigo Dantas Nunes - http://www.linkedin.com/in/rdantasnunes - rdantasnunes(at)gmail(dot)com
+ * 
+ * Entidade Festa usada para representar os dados da festa que podem também ditar o comportamento do sistema durante uma festa.
+ * 
+ */
 @Entity
 public class Festa extends SuperEntity<Festa> implements Serializable{
 

@@ -5,6 +5,15 @@ import java.io.Serializable;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
+/**
+ * 
+ * Created on 14/05/2014
+ * 
+ * @author Rodrigo Dantas Nunes - http://www.linkedin.com/in/rdantasnunes - rdantasnunes(at)gmail(dot)com
+ * 
+ * Entidade Comanda usada para representar a comanda de um dado cliente ou mesa.
+ * 
+ */
 @Entity
 public class Comanda extends SuperEntity<Comanda> implements Serializable {
 

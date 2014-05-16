@@ -10,6 +10,15 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+/**
+ * 
+ * Created on 14/05/2014
+ * 
+ * @author Rodrigo Dantas Nunes - http://www.linkedin.com/in/rdantasnunes - rdantasnunes(at)gmail(dot)com
+ * 
+ * Entidade Venda usada para representar os dados da venda.
+ * 
+ */
 @Entity
 public class Venda extends SuperEntity<Venda> implements Serializable {
 

@@ -9,6 +9,15 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+/**
+ * 
+ * Created on 14/05/2014
+ * 
+ * @author Rodrigo Dantas Nunes - http://www.linkedin.com/in/rdantasnunes - rdantasnunes(at)gmail(dot)com
+ * 
+ * Entidade Produto usada para representar os dados dos produtos vendidos
+ * 
+ */
 @Entity
 public class Produto extends SuperEntity<Produto> implements Serializable {
 

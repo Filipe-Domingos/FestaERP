@@ -2,6 +2,19 @@ package br.com.rdantasnunes.festaerp.idao;
 
 import java.util.List;
 
+/**
+ * 
+ * Created on 16/05/2014
+ * 
+ * @author Rodrigo Dantas Nunes - http://www.linkedin.com/in/rdantasnunes - rdantasnunes(at)gmail(dot)com
+ * 
+ * @param <T> Classe generica usada como ref. na implementacao desta interface.
+ * 
+ * O objetivo desta interface eh ser uma referencia com as funcoes basicas de uma 
+ * interface DAO (Data Access Object) do sistema. As funcoes especificas de cada 
+ * DAO de entidade devem ser declaradas nas interfaces especificas de cada DAO correspondente.
+ * 
+ */
 public interface Dao<T> {
 
 	/**

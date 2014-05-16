@@ -8,7 +8,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class Festa implements Serializable{
+public class Festa extends SuperEntity<Festa> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +23,10 @@ public class Festa implements Serializable{
 	private Date dataFim;
 	
 	private String responsavel;
+
+	public Festa() {
+		super();
+	}
 
 	public Festa(String titulo, Date dataInicio, Date dataFim,
 			String responsavel) {

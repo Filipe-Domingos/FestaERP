@@ -7,7 +7,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class Usuario implements Serializable {
+public class Usuario extends SuperEntity<Usuario> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -22,6 +22,10 @@ public class Usuario implements Serializable {
 	private String senha;
 	
 	private Boolean admin;
+
+	public Usuario() {
+		super();
+	}
 
 	public Usuario(String nome, String login, String senha, Boolean admin) {
 		super();

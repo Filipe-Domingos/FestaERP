@@ -6,7 +6,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 @Entity
-public class Comanda implements Serializable {
+public class Comanda extends SuperEntity<Comanda> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -16,6 +16,11 @@ public class Comanda implements Serializable {
 	private Long numeroMesa;
 	
 	private String identificacaoResponsavel; //pode ser usado RG, telefone, cpf ou o que o estabelecimento quiser.
+
+	
+	public Comanda() {
+		super();
+	}
 
 	public Comanda(Long numeroMesa, String identificacaoResponsavel) {
 		super();

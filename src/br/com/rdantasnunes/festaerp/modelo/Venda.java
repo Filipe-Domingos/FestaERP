@@ -3,27 +3,35 @@ package br.com.rdantasnunes.festaerp.modelo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Transient;
+
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class Venda implements Serializable {
+public class Venda extends SuperEntity<Venda> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Long id;
 	
-	private Long festa_id;
+	private Key<Festa> festa_id;
+	@Transient private Festa festa;
 	
-	private Long produto_id;
+	private Key<Produto> produto_id;
+	@Transient private Produto produto;
 	
-	private Long caixa_id;
+	private Key<Caixa> caixa_id;
+	@Transient private Caixa caixa;
 	
-	private Long usuario_id;
+	private Key<Usuario> usuario_id;
+	@Transient private Usuario usuario;
 	
-	private Long comanda_id;//uma comanda pode ser atribuida a uma mesa, e então o consumo da mesa será lançado na comanda.
+	private Key<Comanda> comanda_id;//uma comanda pode ser atribuida a uma mesa, e entao o consumo da mesa sera lancado na comanda.
+	@Transient private Comanda comanda;
 	
 	@Index
 	private Date dataVenda;
@@ -32,15 +40,19 @@ public class Venda implements Serializable {
 	
 	private Float valor;
 
-	public Venda(Long festa_id, Long produto_id, Long caixa_id,
-			Long usuario_id, Long comanda_id, Date dataVenda, Float quantidade,
+	public Venda() {
+		super();
+	}
+
+	public Venda(Festa festa, Produto produto, Caixa caixa,
+			Usuario usuario, Comanda comanda, Date dataVenda, Float quantidade,
 			Float valor) {
 		super();
-		this.festa_id = festa_id;
-		this.produto_id = produto_id;
-		this.caixa_id = caixa_id;
-		this.usuario_id = usuario_id;
-		this.comanda_id = comanda_id;
+		setFesta(festa);
+		setProduto(produto);
+		setCaixa(caixa);
+		setUsuario(usuario);
+		setComanda(comanda);
 		this.dataVenda = dataVenda;
 		this.quantidade = quantidade;
 		this.valor = valor;
@@ -54,44 +66,74 @@ public class Venda implements Serializable {
 		this.id = id;
 	}
 
-	public Long getFesta_id() {
-		return festa_id;
+	public Festa getFesta() {
+		if(this.festa == null && festa_id != null){
+			this.festa = festa.get(Festa.class,festa_id.getId());
+		}
+		return this.festa;
 	}
 
-	public void setFesta_id(Long festa_id) {
-		this.festa_id = festa_id;
+	public void setFesta(Festa festa) {
+		this.festa = festa;
+		if(festa != null && festa.getId() != null){
+			this.festa_id = Key.create(Festa.class,festa.getId());
+		}
 	}
 
-	public Long getProduto_id() {
-		return produto_id;
+	public Produto getProduto() {
+		if(this.produto == null && produto_id != null){
+			this.produto = produto.get(Produto.class,produto_id.getId());
+		}
+		return this.produto;
 	}
 
-	public void setProduto_id(Long produto_id) {
-		this.produto_id = produto_id;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+		if(produto != null && produto.getId() != null){
+			this.produto_id = Key.create(Produto.class,produto.getId());
+		}
 	}
 
-	public Long getCaixa_id() {
-		return caixa_id;
+	public Caixa getCaixa() {
+		if(this.caixa == null && caixa_id != null){
+			this.caixa = caixa.get(Caixa.class,caixa_id.getId());
+		}
+		return this.caixa;
 	}
 
-	public void setCaixa_id(Long caixa_id) {
-		this.caixa_id = caixa_id;
+	public void setCaixa(Caixa caixa) {
+		this.caixa = caixa;
+		if(caixa != null && caixa.getId() != null){
+			this.caixa_id = Key.create(Caixa.class,caixa.getId());
+		}
 	}
 
-	public Long getUsuario_id() {
-		return usuario_id;
+	public Usuario getUsuario() {
+		if(this.usuario == null && usuario_id != null){
+			this.usuario = usuario.get(Usuario.class,usuario_id.getId());
+		}
+		return this.usuario;
 	}
 
-	public void setUsuario_id(Long usuario_id) {
-		this.usuario_id = usuario_id;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+		if(usuario != null && usuario.getId() != null){
+			this.usuario_id = Key.create(Usuario.class,usuario.getId());
+		}
 	}
 
-	public Long getComanda_id() {
-		return comanda_id;
+	public Comanda getComanda() {
+		if(this.comanda == null && comanda_id != null){
+			this.comanda = comanda.get(Comanda.class,comanda_id.getId());
+		}
+		return this.comanda;
 	}
 
-	public void setComanda_id(Long comanda_id) {
-		this.comanda_id = comanda_id;
+	public void setComanda(Comanda comanda) {
+		this.comanda = comanda;
+		if(comanda != null && comanda.getId() != null){
+			this.comanda_id = Key.create(Comanda.class,comanda.getId());
+		}
 	}
 
 	public Date getDataVenda() {

@@ -6,7 +6,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 @Entity
-public class Unidade implements Serializable {
+public class Unidade extends SuperEntity<Unidade> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -16,6 +16,10 @@ public class Unidade implements Serializable {
 	private String sigla;
 	
 	private String descricao;
+
+	public Unidade() {
+		super();
+	}
 
 	public Unidade(String sigla, String descricao) {
 		super();

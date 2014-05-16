@@ -24,7 +24,7 @@ public class ProdutoDAOImpl implements ProdutoDao{
 	
 	@Override
 	public List<Produto> find() {
-log.info("Finding all produtos");
+		log.info("Finding all produtos");
 		
 		//checks if the produtos are in the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -47,13 +47,7 @@ log.info("Finding all produtos");
 
 	@Override
 	public Produto find(Long id) {
-		List<Produto> produtos = ofy().load().type(Produto.class).list();
-		for (Produto produto : produtos) {
-			if(produto.getId() == id){
-				return produto;
-			}
-		}
-		return null;
+		return ofy().load().type(Produto.class).id(id).now();
 	}
 
 	@Override

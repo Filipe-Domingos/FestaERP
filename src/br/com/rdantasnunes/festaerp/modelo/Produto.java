@@ -2,12 +2,15 @@ package br.com.rdantasnunes.festaerp.modelo;
 
 import java.io.Serializable;
 
+import javax.persistence.Transient;
+
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class Produto implements Serializable {
+public class Produto extends SuperEntity<Produto> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,15 +24,20 @@ public class Produto implements Serializable {
 	
 	private Float valor;
 	
-	private Long unidade_id;
+	private Key<Unidade> unidade_id;
+	@Transient private Unidade unidade;
+
+	public Produto() {
+		super();
+	}
 
 	public Produto(String descricao, Float quantidade, Float valor,
-			Long unidade) {
+			Unidade unidade) {
 		super();
 		this.descricao = descricao;
 		this.quantidade = quantidade;
 		this.valor = valor;
-		this.unidade_id = unidade;
+		setUnidade(unidade);
 	}
 
 	public Long getId() {
@@ -64,14 +72,20 @@ public class Produto implements Serializable {
 		this.valor = valor;
 	}
 
-	public Long getUnidade() {
-		return unidade_id;
+	public Unidade getUnidade() {
+		if(this.unidade == null && unidade_id != null){
+			this.unidade = unidade.get(Unidade.class,unidade_id.getId());
+		}
+		return this.unidade;
 	}
 
-	public void setUnidade(Long unidade) {
-		this.unidade_id = unidade;
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+		if(unidade != null && unidade.getId() != null){
+			this.unidade_id = Key.create(Unidade.class,unidade.getId());
+		}
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

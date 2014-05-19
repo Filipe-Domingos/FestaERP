@@ -3,8 +3,60 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_2.xsd">
 	<application>
+		<!-- Configura o locale (i18n) pt-BR para toda aplicacao. -->
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+		</locale-config>
+
+		<!-- Define o nome do arquivo com as labels e mensagens. Note que 'msg' 
+			eh a variavel usada nas telas pra recuperar as labels/mensagens. -->
+		<resource-bundle>
+			<base-name>messages_labels</base-name>
+			<var>msg</var>
+		</resource-bundle>
+
 		<lifecycle>
-			<phase-listener>br.com.rdantasnunes.festaerp.bugfix.SessionPhaseListener</phase-listener>
+			<phase-listener>br.com.rdantasnunes.festaerp.bugfix.SessionPhaseListener
+			</phase-listener>
 		</lifecycle>
 	</application>
+	
+	<!-- Define a navegacao global para a pagina com a lista de mercadorias. -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>listaProdutos</from-outcome>
+			<to-view-id>/listaProdutos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listaCaixas</from-outcome>
+			<to-view-id>/listaCaixas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listaUnidades</from-outcome>
+			<to-view-id>/listaUnidades.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listaComandas</from-outcome>
+			<to-view-id>/listaComandas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listaFestas</from-outcome>
+			<to-view-id>/listaFestas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listaUsuarios</from-outcome>
+			<to-view-id>/listaUsuarios.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listaVendas</from-outcome>
+			<to-view-id>/listaVendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>		
+	</navigation-rule>
 </faces-config>

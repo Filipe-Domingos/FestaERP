@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import org.apache.log4j.Logger;
 
 import br.com.rdantasnunes.festaerp.dao.ProdutoDAOImpl;
 import br.com.rdantasnunes.festaerp.idao.ProdutoDao;
@@ -26,13 +27,15 @@ import br.com.rdantasnunes.festaerp.modelo.Produto;
  * 
  * <p>Esse componente atua com um papel parecido com o <code>Controller</code> de outros frameworks <code>MVC</code>, ele resolve o fluxo de navegacao e liga os componentes visuais com os dados.</p>
  * 
- * @author 
+ * @author  Rodrigo Dantas Nunes - http://www.linkedin.com/in/rdantasnunes - rdantasnunes(at)gmail(dot)com
+ * Criado com base na classe MB de Yaw Tecnologia
+ *  
  */
 @ManagedBean
 @SessionScoped
 public class ProdutoMB implements Serializable {
 	
-	//private static Logger log = Logger.getLogger(ProdutoMB.class);
+	private static Logger log = Logger.getLogger(ProdutoMB.class);
 	
 	private static final long serialVersionUID = 1L;
 
@@ -96,9 +99,9 @@ public class ProdutoMB implements Serializable {
 				produtos.put(m.getId(), m);
 			}
 			
-			//log.debug("Carregou a lista de produtos ("+produtos.size()+")");
+			log.debug("Carregou a lista de produtos ("+produtos.size()+")");
 		} catch(Exception ex) {
-			//log.error("Erro ao carregar a lista de produtos.", ex);
+			log.error("Erro ao carregar a lista de produtos.", ex);
 			addMessage(getMessageFromI18N("msg.erro.listar.produto"), ex.getMessage());
 		}
 		
@@ -109,7 +112,7 @@ public class ProdutoMB implements Serializable {
 	 */
 	public void incluir(){
 		produto = new Produto();
-		//log.debug("Pronto pra incluir");
+		log.debug("Pronto pra incluir");
 	}
 	
 	/**
@@ -120,7 +123,7 @@ public class ProdutoMB implements Serializable {
 			return;
 		}
 		produto = produtos.get(idSelecionado);
-		//log.debug("Pronto pra editar");
+		log.debug("Pronto pra editar");
 	}
 
 	/**
@@ -132,11 +135,11 @@ public class ProdutoMB implements Serializable {
 			dao.insert(produto);
 			produtos.put(produto.getId(), produto);
 		} catch(Exception ex) {
-			//log.error("Erro ao salvar produto.", ex);
+			log.error("Erro ao salvar produto.", ex);
 			addMessage(getMessageFromI18N("msg.erro.salvar.produto"), ex.getMessage());
 			return "";
 		}
-		//log.debug("Salvour produto "+produto.getId());
+		log.debug("Salvour produto "+produto.getId());
 		return "listaProdutos";
 	}
 	
@@ -164,11 +167,11 @@ public class ProdutoMB implements Serializable {
 			dao.delete(produto);
 			produtos.remove(produto.getId());
 		} catch(Exception ex) {
-			//log.error("Erro ao remover produto.", ex);
+			log.error("Erro ao remover produto.", ex);
 			addMessage(getMessageFromI18N("msg.erro.remover.produto"), ex.getMessage());
 			return "";
 		}
-		//log.debug("Removeu produto "+produto.getId());
+		log.debug("Removeu produto "+produto.getId());
 		return "listaProdutos";
 	}
 	

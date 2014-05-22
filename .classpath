@@ -8,5 +8,12 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-3.0-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-3.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/guava-14.0.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-user-2.5.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-core-2.1.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-databind-2.1.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jdo2-api-2.3-eb.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/joda-money-0.6.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/joda-time-2.1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

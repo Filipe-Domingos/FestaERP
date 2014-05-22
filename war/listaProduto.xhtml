@@ -4,52 +4,45 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:composition template="/layout/template.xhtml">
-    	<ui:define name="pageTitle"><h:outputText value="#{msg['page.title.lista.mercadoria']}" /></ui:define>
+    	<ui:define name="pageTitle"><h:outputText value="#{msg['page.title.lista.produto']}" /></ui:define>
     	
     	<f:metadata>
-            <f:event type="preRenderView" listener="#{mercadoriaMB.reset}" />
+            <f:event type="preRenderView" listener="#{produtoMB.reset}" />
         </f:metadata>
     	
 		<ui:define name="content">
 			<div style="border-bottom: 1px solid #E5E5E5;">
-				<h3><h:outputText value="#{msg['label.mercadorias']}" />
+				<h3><h:outputText value="#{msg['label.produtos']}" />
 					<small> <h:outputText value="#{msg['label.listagem']}" /></small></h3>
 			</div>
 			
 			<h:form>
-				<h:dataTable value="#{mercadoriaMB.dmMercadorias}" var="mercadoria" styleClass="table table-hover">
+				<h:dataTable value="#{produtoMB.dmProdutos}" var="produto" styleClass="table table-hover">
 					<h:column>
 						<f:facet name="header">#</f:facet>
-						<h:outputText value="#{mercadoria.id}" />
+						<h:outputText value="#{produto.id}" />
 	                </h:column>
 	                
 					<h:column>
-						<f:facet name="header"><h:outputText value="#{msg['label.mercadoria.nome']}" /></f:facet>
-						<h:link outcome="editarMercadoria" value="#{mercadoria.nome}" title="#{msg['label.editar']} #{mercadoria.nome}">
-                			<f:param name="id" value="#{mercadoria.id}" />
-            			</h:link>
+						<f:facet name="header"><h:outputText value="#{msg['label.produto.descricao']}" /></f:facet>
+						<h:outputText value="#{produto.descricao}" />
 	                </h:column>
 	                
 	                <h:column>
-						<f:facet name="header"><h:outputText value="#{msg['label.mercadoria.descricao']}" /></f:facet>
-						<h:outputText value="#{mercadoria.descricao}" />
+						<f:facet name="header"><h:outputText value="#{msg['label.produto.quantidade']}" /></f:facet>
+						<h:outputText value="#{produto.quantidade}" />
 	                </h:column>
 	                
 	                <h:column>
-						<f:facet name="header"><h:outputText value="#{msg['label.mercadoria.quantidade']}" /></f:facet>
-						<h:outputText value="#{mercadoria.quantidade}" />
-	                </h:column>
-	                
-	                <h:column>
-						<f:facet name="header"><h:outputText value="#{msg['label.mercadoria.quantidade']}" /></f:facet>
-						<h:outputText value="#{mercadoria.preco}">
+						<f:facet name="header"><h:outputText value="#{msg['label.produto.valor']}" /></f:facet>
+						<h:outputText value="#{produto.valor}">
 							<f:convertNumber type="currency"  />
 						</h:outputText>
 	                </h:column>
 				</h:dataTable>
 				
 				<h:panelGrid columns="1">
-					<h:commandButton action="#{mercadoriaMB.atualizar}" value="#{msg['button.atualizar']}" styleClass="btn btn-success" />
+					<h:commandButton action="#{produtoMB.atualizar}" value="#{msg['button.atualizar']}" styleClass="btn btn-success" />
 				</h:panelGrid>
 			</h:form>
 			<h:messages />

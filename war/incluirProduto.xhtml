@@ -4,14 +4,14 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:composition template="/layout/template.xhtml">
-    	<ui:define name="pageTitle"><h:outputText value="#{msg['page.title.incluir.mercadoria']}" /></ui:define>
+    	<ui:define name="pageTitle"><h:outputText value="#{msg['page.title.incluir.produto']}" /></ui:define>
     	
     	<f:metadata>
-            <f:event type="preRenderView" listener="#{mercadoriaMB.incluir}" />
+            <f:event type="preRenderView" listener="#{produtoMB.incluir}" />
         </f:metadata>
     	
 		<ui:define name="content">
-			<ui:include src="formMercadoria.xhtml">
+			<ui:include src="formProduto.xhtml">
 				<ui:param name="subtitle" value="#{msg['label.incluir']}" />
 			</ui:include>
 		</ui:define>

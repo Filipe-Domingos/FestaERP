@@ -88,7 +88,11 @@ public class ProdutoMB implements Serializable {
 	 * @return <code>DataModel</code> para carregar a lista de produtos.
 	 */
 	public DataModel<Produto> getDmProdutos() {
-		return new ListDataModel<Produto>(new ArrayList<Produto>(produtos.values()));
+		if(produtos == null || produtos.values() == null){
+			return new ListDataModel<Produto>(new ArrayList<Produto>());
+		}else{
+			return new ListDataModel<Produto>(new ArrayList<Produto>(produtos.values()));
+		}
 	}
 	
 	private void fillProdutos() {
@@ -190,6 +194,9 @@ public class ProdutoMB implements Serializable {
 	 * @param detail
 	 */
 	private void addMessage(String summary, String detail) {
+		if(detail == null){
+			detail = "";
+		}
 		getCurrentInstance().addMessage(null, new FacesMessage(summary, summary.concat("<br/>").concat(detail)));
 	}
 }

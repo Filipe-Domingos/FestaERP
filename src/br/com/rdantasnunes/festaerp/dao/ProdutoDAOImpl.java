@@ -2,6 +2,7 @@ package br.com.rdantasnunes.festaerp.dao;
 
 import static br.com.rdantasnunes.festaerp.dao.OfyService.ofy;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +18,10 @@ import br.com.rdantasnunes.festaerp.idao.ProdutoDao;
 import br.com.rdantasnunes.festaerp.modelo.Produto;
 
 @Singleton
-public class ProdutoDAOImpl implements ProdutoDao{
+public class ProdutoDAOImpl implements ProdutoDao, Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Inject
 	private Logger log;
 	

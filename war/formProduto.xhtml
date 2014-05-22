@@ -5,39 +5,30 @@
     
     <h:form styleClass="form-horizontal">
     	<fieldset>
-    		<legend><h3><h:outputText value="#{msg['label.mercadoria']}" /> <small> <h:outputText value="#{subtitle}" /></small></h3></legend>
+    		<legend><h3><h:outputText value="#{msg['label.produto']}" /> <small> <h:outputText value="#{subtitle}" /></small></h3></legend>
     		<div class="control-group">
-	    		<label class="control-label"><h:outputText value="#{msg['label.mercadoria.nome']}" /></label>
+	    		<label class="control-label"><h:outputText value="#{msg['label.produto.descricao']}" /></label>
 	    		<div class="controls">
-	    			<h:inputText value="#{mercadoriaMB.mercadoria.nome}" label="#{msg['label.mercadoria.nome']}" required="true" styleClass="input-large">
-	    				<f:validateLength minimum="5" maximum="60" />
-	    			</h:inputText>
-	    		</div>
-    		</div>
-    		
-    		<div class="control-group">
-	    		<label class="control-label"><h:outputText value="#{msg['label.mercadoria.descricao']}" /></label>
-	    		<div class="controls">
-	    			<h:inputText value="#{mercadoriaMB.mercadoria.descricao}" label="#{msg['label.mercadoria.descricao']}" required="true" styleClass="input-large">
+	    			<h:inputText value="#{produtoMB.produto.descricao}" label="#{msg['label.produto.descricao']}" required="true" styleClass="input-large">
 	    				<f:validateLength minimum="5" maximum="100" />
 	    			</h:inputText>
 	    		</div>
 	    	</div>
 	    	
 	    	<div class="control-group">
-	    		<label class="control-label"><h:outputText value="#{msg['label.mercadoria.quantidade']}" /></label>
+	    		<label class="control-label"><h:outputText value="#{msg['label.produto.quantidade']}" /></label>
 	    		<div class="controls">
-	    			<h:inputText value="#{mercadoriaMB.mercadoria.quantidade}" label="#{msg['label.mercadoria.quantidade']}" required="true" styleClass="input-small">
-	    				<f:convertNumber />
-	    				<f:validateLongRange minimum="1" />
+	    			<h:inputText value="#{produtoMB.produto.quantidade}" label="#{msg['label.produto.quantidade']}" required="true" styleClass="input-small">
+	    				<f:convertNumber minFractionDigits="2" />
+	    				<f:validateDoubleRange minimum="1" />
 	    			</h:inputText>
 	    		</div>
 	    	</div>
 	    	
 	    	<div class="control-group">
-	    		<label class="control-label"><h:outputText value="#{msg['label.mercadoria.preco']}" /></label>
+	    		<label class="control-label"><h:outputText value="#{msg['label.produto.valor']}" /></label>
 	    		<div class="controls">
-	    			<h:inputText value="#{mercadoriaMB.mercadoria.preco}" label="#{msg['label.mercadoria.preco']}" required="true" styleClass="input-small">
+	    			<h:inputText value="#{produtoMB.produto.valor}" label="#{msg['label.produto.valor']}" required="true" styleClass="input-small">
 	    				<f:convertNumber minFractionDigits="2" />
 	    				<f:validateDoubleRange minimum="1" />
 	    			</h:inputText>
@@ -47,9 +38,9 @@
     	
     	<div class="control-group">
     		<div class="controls">
-    			<h:commandButton value="#{msg['button.salvar']}" action="#{mercadoriaMB.salvar}" styleClass="btn btn-success"/>
-    			<h:button value="#{msg['button.cancelar']}" outcome="listaMercadorias" styleClass="btn"/>
-    			<h:commandButton value="#{msg['button.excluir']}" action="#{mercadoriaMB.remover}" rendered="#{mercadoriaMB.mercadoria.id != null}" immediate="true" styleClass="btn btn-danger"/>
+    			<h:commandButton value="#{msg['button.salvar']}" action="#{produtoMB.salvar}" styleClass="btn btn-success"/>
+    			<h:button value="#{msg['button.cancelar']}" outcome="listaProdutos" styleClass="btn"/>
+    			<h:commandButton value="#{msg['button.excluir']}" action="#{produtoMB.remover}" rendered="#{produtoMB.produto.id != null}" immediate="true" styleClass="btn btn-danger"/>
     		</div>
     	</div>
     </h:form>

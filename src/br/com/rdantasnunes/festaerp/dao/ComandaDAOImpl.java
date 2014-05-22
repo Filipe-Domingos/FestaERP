@@ -2,6 +2,7 @@ package br.com.rdantasnunes.festaerp.dao;
 
 import static br.com.rdantasnunes.festaerp.dao.OfyService.ofy;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +18,9 @@ import br.com.rdantasnunes.festaerp.idao.ComandaDao;
 import br.com.rdantasnunes.festaerp.modelo.Comanda;
 
 @Singleton
-public class ComandaDAOImpl implements ComandaDao{
+public class ComandaDAOImpl implements ComandaDao, Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private Logger log;

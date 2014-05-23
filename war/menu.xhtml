@@ -1,9 +1,74 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
-    
-	<ul class="nav nav-list" style="padding-top: 15px;">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- Ícones Primefaces ==> http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html -->
+	<h:form>
+		<p:growl autoUpdate="true" />
+
+		<p:panelMenu style="width:100%">
+			<p:submenu label="#{msg['label.usuario']}">
+				<p:menuitem value="#{msg['label.listarmanter']}" url="listaUsuario.jsf" 
+					ajax="false" icon="ui-icon-calculator" />
+				<p:menuitem value="#{msg['label.inserir']}" url="incluirUsuario.jsf"
+					ajax="false" icon="ui-icon-plus" />
+			</p:submenu>
+			<p:separator/>
+			
+			<p:submenu label="#{msg['label.festa']}">
+				<p:menuitem value="#{msg['label.listarmanter']}" url="listaFesta.jsf" 
+					ajax="false" icon="ui-icon-calculator" />
+				<p:menuitem value="#{msg['label.inserir']}" url="incluirFesta.jsf"
+					ajax="false" icon="ui-icon-plus" />
+			</p:submenu>
+			<p:separator/>
+			
+			<p:submenu label="#{msg['label.caixa']}">
+				<p:menuitem value="#{msg['label.listarmanter']}" url="listaCaixa.jsf" 
+					ajax="false" icon="ui-icon-calculator" />
+				<p:menuitem value="#{msg['label.inserir']}" url="incluirCaixa.jsf"
+					ajax="false" icon="ui-icon-plus" />
+			</p:submenu>
+			<p:separator/>
+			
+			<p:submenu label="#{msg['label.comanda']}">
+				<p:menuitem value="#{msg['label.listarmanter']}" url="listaComanda.jsf" 
+					ajax="false" icon="ui-icon-calculator" />
+				<p:menuitem value="#{msg['label.inserir']}" url="incluirComanda.jsf"
+					ajax="false" icon="ui-icon-plus" />
+			</p:submenu>
+			<p:separator/>
+			
+			<p:submenu label="#{msg['label.unidade']}">
+				<p:menuitem value="#{msg['label.listarmanter']}" url="listaUnidade.jsf" 
+					ajax="false" icon="ui-icon-calculator" />
+				<p:menuitem value="#{msg['label.inserir']}" url="incluirUnidade.jsf"
+					ajax="false" icon="ui-icon-plus" />
+			</p:submenu>
+			<p:separator/>
+			
+			<p:submenu label="#{msg['label.produto']}">
+				<p:menuitem value="#{msg['label.listarmanter']}" url="listaProduto.jsf" 
+					ajax="false" icon="ui-icon-calculator" />
+				<p:menuitem value="#{msg['label.inserir']}" url="incluirProduto.jsf"
+					 icon="ui-icon-plus" />
+			</p:submenu>
+			<p:separator/>
+			
+			<p:submenu label="#{msg['label.venda']}">
+				<p:menuitem value="#{msg['label.listarmanter']}" url="listaVenda.jsf" 
+					ajax="false" icon="ui-icon-calculator" />
+				<p:menuitem value="#{msg['label.inserir']}" url="incluirVenda.jsf"
+					 icon="ui-icon-plus" />
+			</p:submenu>
+			<p:separator/>
+			
+		</p:panelMenu>
+	</h:form>
+
+	<!-- ul class="nav nav-list" style="padding-top: 15px;">
 		<li><em><h:outputText value="#{msg['label.usuario']}" /></em></li>
 		<li><em><h:outputText value="#{msg['label.festa']}" /></em></li>
 		<li><em><h:outputText value="#{msg['label.caixa']}" /></em></li>
@@ -13,12 +78,12 @@
 		<li><em><h:outputText value="#{msg['label.venda']}" /></em></li>
 				
 		<li class="#{empty param.active || param.active == 'lista' ? 'active' : ''}">
-			<h:link outcome="listaMercadorias" value="#{msg['menu.lista']}">
+			<h:link outcome="listaProdutos" value="#{msg['menu.lista']}">
 				<f:param name="active" value="lista" />
             </h:link>
 		</li>
 		<li class="#{param.active == 'incluir' ? 'active' : ''}">
-			<h:link outcome="incluirMercadoria" value="#{msg['menu.incluir']}">
+			<h:link outcome="incluirProduto" value="#{msg['menu.incluir']}">
 				<f:param name="active" value="incluir" />
             </h:link>
         </li>
@@ -28,6 +93,6 @@
 				<f:param name="active" value="sobre" />
             </h:link>
 		</li>
-	</ul>
+	</ul-->
 
 </ui:fragment>

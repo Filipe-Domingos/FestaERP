@@ -48,6 +48,16 @@ public class Produto extends SuperEntity<Produto> implements Serializable {
 		this.valor = valor;
 		setUnidade(unidade);
 	}
+	
+	public Produto(Long id, String descricao, Float quantidade, Float valor,
+			Unidade unidade) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
+		this.quantidade = quantidade;
+		this.valor = valor;
+		setUnidade(unidade);
+	}
 
 	public Long getId() {
 		return id;

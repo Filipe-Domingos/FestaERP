@@ -1,51 +1,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/layout/template.xhtml">
-    	<ui:define name="pageTitle"><h:outputText value="#{msg['page.title.lista.produto']}" /></ui:define>
-    	
-    	<f:metadata>
-            <f:event type="preRenderView" listener="#{produtoMB.reset}" />
-        </f:metadata>
-    	
-		<ui:define name="content">
-			<div style="border-bottom: 1px solid #E5E5E5;">
-				<h3><h:outputText value="#{msg['label.produtos']}" />
-					<small> <h:outputText value="#{msg['label.listagem']}" /></small></h3>
-			</div>
-			
+<ui:composition template="/layout/template.xhtml">
+	<ui:define name="pageTitle">
+		<h:outputText value="#{msg['page.title.lista.produto']}" />
+	</ui:define>
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{produtoMB.reset}" />
+	</f:metadata>
+
+	<ui:define name="content">
+
+		<p:fieldset legend="#{msg['page.title.lista.produto']}">
+
 			<h:form>
-				<h:dataTable value="#{produtoMB.dmProdutos}" var="produto" styleClass="table table-hover">
-					<h:column>
-						<f:facet name="header">#</f:facet>
+			
+				<p:dataTable value="#{produtoMB.dmProdutos}" var="produto" emptyMessage="#{msg['label.listaProdutos.vazia']}"
+						 rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+                         
+					<p:column headerText="#">
 						<h:outputText value="#{produto.id}" />
-	                </h:column>
-	                
-					<h:column>
-						<f:facet name="header"><h:outputText value="#{msg['label.produto.descricao']}" /></f:facet>
+					</p:column>
+
+					<p:column headerText="#{msg['label.produto.descricao']}">
 						<h:outputText value="#{produto.descricao}" />
-	                </h:column>
-	                
-	                <h:column>
-						<f:facet name="header"><h:outputText value="#{msg['label.produto.quantidade']}" /></f:facet>
+					</p:column>
+
+					<p:column headerText="#{msg['label.produto.quantidade']}">
 						<h:outputText value="#{produto.quantidade}" />
-	                </h:column>
-	                
-	                <h:column>
-						<f:facet name="header"><h:outputText value="#{msg['label.produto.valor']}" /></f:facet>
+					</p:column>
+
+					<p:column headerText="#{msg['label.produto.valor']}">
 						<h:outputText value="#{produto.valor}">
-							<f:convertNumber type="currency"  />
+							<f:convertNumber type="currency" />
 						</h:outputText>
-	                </h:column>
-				</h:dataTable>
-				
+					</p:column>
+				</p:dataTable>
+
 				<h:panelGrid columns="1">
-					<h:commandButton action="#{produtoMB.atualizar}" value="#{msg['button.atualizar']}" styleClass="btn btn-success" />
+					<p:commandButton action="#{produtoMB.atualizar}" value="#{msg['button.atualizar']}" />
 				</h:panelGrid>
 			</h:form>
-			<h:messages />
-		</ui:define>
-    </ui:composition>
+		</p:fieldset>
+		<!--h:messages /-->
+	</ui:define>
+</ui:composition>
 </html>

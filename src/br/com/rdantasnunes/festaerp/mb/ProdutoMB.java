@@ -14,11 +14,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+
 import org.apache.log4j.Logger;
 
 import br.com.rdantasnunes.festaerp.dao.ProdutoDAOImpl;
 import br.com.rdantasnunes.festaerp.idao.ProdutoDao;
 import br.com.rdantasnunes.festaerp.modelo.Produto;
+import br.com.rdantasnunes.festaerp.modelo.Unidade;
 
 /**
  * Componente atua como um intermediario das telas do cadastro e os componentes de negocio (<code>DAO</code>) da entidade <code>Produto</code>.
@@ -38,7 +40,7 @@ public class ProdutoMB implements Serializable {
 	private static Logger log = Logger.getLogger(ProdutoMB.class);
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * Referencia do componente de persistencia.
 	 */
@@ -198,5 +200,32 @@ public class ProdutoMB implements Serializable {
 			detail = "";
 		}
 		getCurrentInstance().addMessage(null, new FacesMessage(summary, summary.concat("<br/>").concat(detail)));
+	}
+	
+	{	
+		produtos = new HashMap<Long, Produto>();
+		Long i = 0L;
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Cerveja Skol", 120.0F, 5.0F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Cerveja Itaipava", 532.0F, 4.3F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Cerveja Sol", 1.0F, 3.5F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Whisky JW Red", 10.0F, 90.0F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Cuba", 1000.0F, 4F, new Unidade("DS", "Dose")));
+		produtos.put(i++, new Produto(i,"Dose Whisky JW Blue", 100.0F, 20.0F, new Unidade("DS", "Dose")));
+		produtos.put(i++, new Produto(i,"Tequila", 1000.0F, 10.5F, new Unidade("DS", "Dose")));
+		produtos.put(i++, new Produto(i,"Pinga", 325.0F, 2.5F, new Unidade("DS", "Dose")));
+		produtos.put(i++, new Produto(i,"Hi-fi", 100.0F, 15F, new Unidade("DS", "Dose")));
+		//10
+		produtos.put(i++, new Produto(i,"Salgado Ruffles", 13.0F, 11.2F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Barra de Cereal", 57.0F, 3F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Entrada", 1500.0F, 20F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Meia Entrada", 250.0F, 10F, new Unidade("UN", "Unidade")));
+		/*produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));*/
+		//20
 	}
 }

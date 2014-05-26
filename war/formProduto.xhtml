@@ -1,17 +1,17 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
     
     <h:form styleClass="form-horizontal">
-    	<fieldset>
-    		<legend><h3><h:outputText value="#{msg['label.produto']}" /> <small> <h:outputText value="#{subtitle}" /></small></h3></legend>
+    	<p:fieldset legend="#{msg['label.produto']} - #{subtitle}" >
     		<div class="control-group">
 	    		<label class="control-label"><h:outputText value="#{msg['label.produto.descricao']}" /></label>
 	    		<div class="controls">
-	    			<h:inputText value="#{produtoMB.produto.descricao}" label="#{msg['label.produto.descricao']}" required="true" styleClass="input-large">
+	    			<p:inputText value="#{produtoMB.produto.descricao}" label="#{msg['label.produto.descricao']}" required="true" styleClass="input-large">
 	    				<f:validateLength minimum="5" maximum="100" />
-	    			</h:inputText>
+	    			</p:inputText>
 	    		</div>
 	    	</div>
 	    	
@@ -34,7 +34,7 @@
 	    			</h:inputText>
 	    		</div>
 	    	</div>
-    	</fieldset>
+    	</p:fieldset>
     	
     	<div class="control-group">
     		<div class="controls">

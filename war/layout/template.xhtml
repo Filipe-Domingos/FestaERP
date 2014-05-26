@@ -9,9 +9,9 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link type="text/css" rel="stylesheet" href="/resources/css/bootstrap.min.css" />
         <link type="text/css" rel="stylesheet" href="/resources/css/festa_erp.css" />
-        <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+        <!--link type="text/css" rel="stylesheet" href="/resources/css/bootstrap.min.css" />
+        <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script-->
         
         <title>
             <h:outputText value="#{msg['page.title.app']}" /> - <ui:insert name="pageTitle"></ui:insert>
@@ -21,7 +21,7 @@
     <h:body>
     	<f:view contentType="text/html">
     	<div class="header">
-    		<div class="container">
+    		<div>
         		<ui:insert name="header"><ui:include src="header.xhtml" /></ui:insert>
         	</div>
         </div>

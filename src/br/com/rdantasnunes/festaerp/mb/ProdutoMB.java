@@ -57,6 +57,11 @@ public class ProdutoMB implements Serializable {
 	private Long idSelecionado;
 	
 	/**
+	 * Listagem das unidades de medidas disponiveis no sistema
+	 */
+	private List<Unidade> unidades;
+	
+	/**
 	 * Mantem as produtos apresentadas na listagem indexadas pelo id.
 	 * <strong>Importante:</strong> a consulta (query) no DataStore do App Engine pode retornar <i>dados antigos</i>, 
 	 * que ja foram removidos ou que ainda nao foram incluidos, devido a replicacao dos dados.
@@ -202,30 +207,45 @@ public class ProdutoMB implements Serializable {
 		getCurrentInstance().addMessage(null, new FacesMessage(summary, summary.concat("<br/>").concat(detail)));
 	}
 	
+	public List<Unidade> getUnidades() {
+		return unidades;
+	}
+
+	public void setUnidades(List<Unidade> unidades) {
+		this.unidades = unidades;
+	}
+	
 	{	
 		produtos = new HashMap<Long, Produto>();
+		Unidade un = new Unidade("UN", "Unidade");
+		Unidade ds = new Unidade("DS", "Dose");
 		Long i = 0L;
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Cerveja Skol", 120.0F, 5.0F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Cerveja Itaipava", 532.0F, 4.3F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Cerveja Sol", 1.0F, 3.5F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Whisky JW Red", 10.0F, 90.0F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Cuba", 1000.0F, 4F, new Unidade("DS", "Dose")));
-		produtos.put(i++, new Produto(i,"Dose Whisky JW Blue", 100.0F, 20.0F, new Unidade("DS", "Dose")));
-		produtos.put(i++, new Produto(i,"Tequila", 1000.0F, 10.5F, new Unidade("DS", "Dose")));
-		produtos.put(i++, new Produto(i,"Pinga", 325.0F, 2.5F, new Unidade("DS", "Dose")));
-		produtos.put(i++, new Produto(i,"Hi-fi", 100.0F, 15F, new Unidade("DS", "Dose")));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
+		produtos.put(i++, new Produto(i,"Cerveja Skol", 120.0F, 5.0F, un));
+		produtos.put(i++, new Produto(i,"Cerveja Itaipava", 532.0F, 4.3F, un));
+		produtos.put(i++, new Produto(i,"Cerveja Sol", 1.0F, 3.5F, un));
+		produtos.put(i++, new Produto(i,"Whisky JW Red", 10.0F, 90.0F, un));
+		produtos.put(i++, new Produto(i,"Cuba", 1000.0F, 4F, ds));
+		produtos.put(i++, new Produto(i,"Dose Whisky JW Blue", 100.0F, 20.0F, ds));
+		produtos.put(i++, new Produto(i,"Tequila", 1000.0F, 10.5F, ds));
+		produtos.put(i++, new Produto(i,"Pinga", 325.0F, 2.5F, ds));
+		produtos.put(i++, new Produto(i,"Hi-fi", 100.0F, 15F, ds));
 		//10
-		produtos.put(i++, new Produto(i,"Salgado Ruffles", 13.0F, 11.2F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Barra de Cereal", 57.0F, 3F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Entrada", 1500.0F, 20F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Meia Entrada", 250.0F, 10F, new Unidade("UN", "Unidade")));
-		/*produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, new Unidade("UN", "Unidade")));*/
+		produtos.put(i++, new Produto(i,"Salgado Ruffles", 13.0F, 11.2F, un));
+		produtos.put(i++, new Produto(i,"Barra de Cereal", 57.0F, 3F, un));
+		produtos.put(i++, new Produto(i,"Entrada", 1500.0F, 20F, un));
+		produtos.put(i++, new Produto(i,"Meia Entrada", 250.0F, 10F, un));
+		/*produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
+		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));*/
 		//20
+		
+		unidades = new ArrayList<Unidade>();
+		unidades.add(un);
+		unidades.add(ds);
 	}
+
 }

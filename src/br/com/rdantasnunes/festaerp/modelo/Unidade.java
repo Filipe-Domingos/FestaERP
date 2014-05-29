@@ -100,7 +100,7 @@ public class Unidade extends SuperEntity<Unidade> implements Serializable {
 
 	@Override
 	public String toString() {
-		return  sigla;
+		return  sigla+"-"+descricao;
 	}
 	
 	

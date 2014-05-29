@@ -1,52 +1,54 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
-    
-    <h:form styleClass="form-horizontal">
-    	<p:fieldset legend="#{msg['label.produto']} - #{subtitle}" >
-    		<div class="control-group">
-	    		<label class="control-label"><h:outputText value="#{msg['label.produto.descricao']}" /></label>
-	    		<div class="controls">
-	    			<p:inputText value="#{produtoMB.produto.descricao}" label="#{msg['label.produto.descricao']}" required="true" styleClass="input-large">
-	    				<f:validateLength minimum="5" maximum="100" />
-	    			</p:inputText>
-	    		</div>
-	    	</div>
-	    	
-	    	<div class="control-group">
-	    		<label class="control-label"><h:outputText value="#{msg['label.produto.quantidade']}" /></label>
-	    		<div class="controls">
-	    			<h:inputText value="#{produtoMB.produto.quantidade}" label="#{msg['label.produto.quantidade']}" required="true" styleClass="input-small">
-	    				<f:convertNumber minFractionDigits="2" />
-	    				<f:validateDoubleRange minimum="1" />
-	    			</h:inputText>
-	    		</div>
-	    	</div>
-	    	
-	    	<div class="control-group">
-	    		<label class="control-label"><h:outputText value="#{msg['label.produto.valor']}" /></label>
-	    		<div class="controls">
-	    			<h:inputText value="#{produtoMB.produto.valor}" label="#{msg['label.produto.valor']}" required="true" styleClass="input-small">
-	    				<f:convertNumber minFractionDigits="2" />
-	    				<f:validateDoubleRange minimum="1" />
-	    			</h:inputText>
-	    		</div>
-	    	</div>
-    	</p:fieldset>
-    	
-    	<div class="control-group">
-    		<div class="controls">
-    			<h:commandButton value="#{msg['button.salvar']}" action="#{produtoMB.salvar}" styleClass="btn btn-success"/>
-    			<h:button value="#{msg['button.cancelar']}" outcome="listaProdutos" styleClass="btn"/>
-    			<h:commandButton value="#{msg['button.excluir']}" action="#{produtoMB.remover}" rendered="#{produtoMB.produto.id != null}" immediate="true" styleClass="btn btn-danger"/>
-    		</div>
-    	</div>
-    </h:form>
-    
-    <h:panelGroup layout="block" class="alert alert-error" rendered="#{facesContext.validationFailed or not empty facesContext.messageList }">
-    	<h:messages showDetail="true" showSummary="false" />
-    </h:panelGroup>
-    
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form style="text-align:left;">
+		<p:messages autoUpdate="true" />
+		<p:fieldset legend="#{msg['label.produto']} - #{subtitle}">
+			<p:panelGrid columns="2">
+					<p:outputLabel value="#{msg['label.produto.descricao']}"
+						for="descricao_id" />
+					<p:inputText id="descricao_id" value="#{produtoMB.produto.descricao}" size="80"
+						label="#{msg['label.produto.descricao']}" required="true">
+						<f:validateLength minimum="5" maximum="100" />
+					</p:inputText>
+					<p:outputLabel for="quantidade_id"
+						value="#{msg['label.produto.quantidade']}" />
+					<p:inputText id="quantidade_id"
+						value="#{produtoMB.produto.quantidade}" size="9"
+						label="#{msg['label.produto.quantidade']}" required="true">
+						<f:convertNumber minFractionDigits="2" />
+						<f:validateDoubleRange minimum="1" />
+					</p:inputText>
+					<p:outputLabel for="valor_id" value="#{msg['label.produto.valor']}" />
+					<p:inputText id="valor_id" value="#{produtoMB.produto.valor}" size="9"
+						label="#{msg['label.produto.valor']}" required="true">
+						<f:convertNumber minFractionDigits="2" />
+						<f:validateDoubleRange minimum="1" />
+					</p:inputText>
+					<p:outputLabel for="unidade_id" value="#{msg['label.produto.unidade']}" />
+					<p:selectOneMenu id="unidade_id" value="#{produtoMB.produto.unidade}"
+						label="#{msg['label.produto.unidade']}" required="true">
+						<f:selectItems value="#{produtoMB.unidades}" var="un" itemLabel="#{un.descricao}"></f:selectItems>
+					</p:selectOneMenu>
+			</p:panelGrid>
+		</p:fieldset>
+
+		<div style="margin-left: 220px"> 
+			<p:commandButton value="#{msg['button.salvar']}"
+				action="#{produtoMB.salvar}" styleClass="btn btn-success" />
+			<p:button value="#{msg['button.cancelar']}" outcome="listaProdutos" />
+			<p:commandButton value="#{msg['button.excluir']}"
+				action="#{produtoMB.remover}"
+				rendered="#{produtoMB.produto.id != null}" immediate="true" />
+		</div>
+	</h:form>
+
+	<h:panelGroup layout="block" class="alert alert-error"
+		rendered="#{facesContext.validationFailed or not empty facesContext.messageList }">
+		<h:messages showDetail="true" showSummary="false" />
+	</h:panelGroup>
+
 </ui:fragment>

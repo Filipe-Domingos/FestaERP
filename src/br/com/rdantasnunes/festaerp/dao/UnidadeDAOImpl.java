@@ -27,7 +27,7 @@ public class UnidadeDAOImpl implements UnidadeDao, Serializable{
 	
 	@Override
 	public List<Unidade> find() {
-		log.info("Finding all unidades");
+		////log.info("Finding all unidades");
 		
 		//checks if the unidades are in the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -36,14 +36,14 @@ public class UnidadeDAOImpl implements UnidadeDao, Serializable{
 		List<Unidade> unidades = (List<Unidade>) syncCache.get( "UNIDADES" );
 		
 		if (unidades == null) {
-			log.info("Not found in cache");
+			////log.info("Not found in cache");
 			unidades = ofy().load().type(Unidade.class).list();
 		} else {
-			log.info("Using cache!");
+			////log.info("Using cache!");
 		}
 		
 	    if (unidades != null) {
-	    	log.info("Returning " + unidades.size() + " unidades");
+	    	////log.info("Returning " + unidades.size() + " unidades");
 	    }
 	    return unidades;
 	}
@@ -55,7 +55,7 @@ public class UnidadeDAOImpl implements UnidadeDao, Serializable{
 
 	@Override
 	public Long insert(Unidade unidade) {
-		log.info("Inserting a new unidade");
+		////log.info("Inserting a new unidade");
 		
 		//invalidates the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -68,7 +68,7 @@ public class UnidadeDAOImpl implements UnidadeDao, Serializable{
 
 	@Override
 	public void delete(Unidade unidade) {
-		log.info("Deleting a new unidade");
+		//log.info("Deleting a new unidade");
 		ofy().delete().entity(unidade).now();
 	}
 }

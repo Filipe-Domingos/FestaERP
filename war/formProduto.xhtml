@@ -4,39 +4,46 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:form style="text-align:left;">
+	<h:form styleClass="form_incluir">
 		<p:messages autoUpdate="true" />
 		<p:fieldset legend="#{msg['label.produto']} - #{subtitle}">
 			<p:panelGrid columns="2">
-					<p:outputLabel value="#{msg['label.produto.descricao']}"
-						for="descricao_id" />
-					<p:inputText id="descricao_id" value="#{produtoMB.produto.descricao}" size="80"
-						label="#{msg['label.produto.descricao']}" required="true">
-						<f:validateLength minimum="5" maximum="100" />
-					</p:inputText>
-					<p:outputLabel for="quantidade_id"
-						value="#{msg['label.produto.quantidade']}" />
-					<p:inputText id="quantidade_id"
-						value="#{produtoMB.produto.quantidade}" size="9"
-						label="#{msg['label.produto.quantidade']}" required="true">
-						<f:convertNumber minFractionDigits="2" />
-						<f:validateDoubleRange minimum="1" />
-					</p:inputText>
-					<p:outputLabel for="valor_id" value="#{msg['label.produto.valor']}" />
-					<p:inputText id="valor_id" value="#{produtoMB.produto.valor}" size="9"
-						label="#{msg['label.produto.valor']}" required="true">
-						<f:convertNumber minFractionDigits="2" />
-						<f:validateDoubleRange minimum="1" />
-					</p:inputText>
-					<p:outputLabel for="unidade_id" value="#{msg['label.produto.unidade']}" />
-					<p:selectOneMenu id="unidade_id" value="#{produtoMB.produto.unidade}"
-						label="#{msg['label.produto.unidade']}" required="true">
-						<f:selectItems value="#{produtoMB.unidades}" var="un" itemLabel="#{un.descricao}"></f:selectItems>
-					</p:selectOneMenu>
+				<p:outputLabel value="#{msg['label.produto.descricao']}"
+					for="descricao_id" />
+				<p:inputText id="descricao_id"
+					value="#{produtoMB.produto.descricao}" size="80"
+					label="#{msg['label.produto.descricao']}" required="true">
+					<f:validateLength minimum="5" maximum="100" />
+				</p:inputText>
+				<p:outputLabel for="quantidade_id"
+					value="#{msg['label.produto.quantidade']}" />
+				<p:inputText id="quantidade_id"
+					value="#{produtoMB.produto.quantidade}" size="9"
+					label="#{msg['label.produto.quantidade']}" required="true">
+					<!--f:convertNumber minFractionDigits="2" /-->
+					<f:validateDoubleRange minimum="1" />
+				</p:inputText>
+				<p:outputLabel for="valor_id" value="#{msg['label.produto.valor']}" />
+				<p:inputText id="valor_id" value="#{produtoMB.produto.valor}" 
+					size="9" label="#{msg['label.produto.valor']}" required="true">
+					<!--f:convertNumber minFractionDigits="2" /-->
+					<f:validateDoubleRange minimum="1" />
+				</p:inputText>
+				<p:outputLabel for="unidade_id"	value="#{msg['label.produto.unidade']}" />
+				<p:selectOneMenu id="unidade_id" value="#{produtoMB.unidade}"
+					converter="unidadeConverter" var="t" style="width:160px" >
+					<f:selectItems value="#{produtoMB.unidades}" var="uns"
+						itemLabel="#{uns.descricao}" itemValue="#{uns}" />
+
+					<p:column>
+						<h:outputText value="#{t.descricao}" />
+					</p:column>
+				</p:selectOneMenu>
+
 			</p:panelGrid>
 		</p:fieldset>
 
-		<div style="margin-left: 220px"> 
+		<div class="div_form_incluir">
 			<p:commandButton value="#{msg['button.salvar']}"
 				action="#{produtoMB.salvar}" styleClass="btn btn-success" />
 			<p:button value="#{msg['button.cancelar']}" outcome="listaProdutos" />
@@ -46,9 +53,9 @@
 		</div>
 	</h:form>
 
-	<h:panelGroup layout="block" class="alert alert-error"
+	<!-- h:panelGroup layout="block" class="alert alert-error"
 		rendered="#{facesContext.validationFailed or not empty facesContext.messageList }">
 		<h:messages showDetail="true" showSummary="false" />
-	</h:panelGroup>
+	</h:panelGroup>  -->
 
 </ui:fragment>

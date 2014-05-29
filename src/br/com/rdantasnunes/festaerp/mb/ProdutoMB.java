@@ -18,7 +18,9 @@ import javax.faces.model.ListDataModel;
 import org.apache.log4j.Logger;
 
 import br.com.rdantasnunes.festaerp.dao.ProdutoDAOImpl;
+import br.com.rdantasnunes.festaerp.dao.UnidadeDAOImpl;
 import br.com.rdantasnunes.festaerp.idao.ProdutoDao;
+import br.com.rdantasnunes.festaerp.idao.UnidadeDao;
 import br.com.rdantasnunes.festaerp.modelo.Produto;
 import br.com.rdantasnunes.festaerp.modelo.Unidade;
 
@@ -60,6 +62,7 @@ public class ProdutoMB implements Serializable {
 	 * Listagem das unidades de medidas disponiveis no sistema
 	 */
 	private List<Unidade> unidades;
+	private Unidade unidade;
 	
 	/**
 	 * Mantem as produtos apresentadas na listagem indexadas pelo id.
@@ -111,6 +114,9 @@ public class ProdutoMB implements Serializable {
 			}
 			
 			log.debug("Carregou a lista de produtos ("+produtos.size()+")");
+			
+			UnidadeDao unDao = new UnidadeDAOImpl();
+			unidades = unDao.find();
 		} catch(Exception ex) {
 			log.error("Erro ao carregar a lista de produtos.", ex);
 			addMessage(getMessageFromI18N("msg.erro.listar.produto"), ex.getMessage());
@@ -151,7 +157,7 @@ public class ProdutoMB implements Serializable {
 			return "";
 		}
 		log.debug("Salvour produto "+produto.getId());
-		return "listaProdutos";
+		return "listaProduto";
 	}
 	
 	/**
@@ -215,10 +221,21 @@ public class ProdutoMB implements Serializable {
 		this.unidades = unidades;
 	}
 	
-	{	
-		produtos = new HashMap<Long, Produto>();
+	public Unidade getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(Unidade unidade) {
+		if(this.produto != null){
+			this.produto.setUnidade(unidade);
+		}
+		this.unidade = unidade;
+	}
+
+	{
 		Unidade un = new Unidade("UN", "Unidade");
 		Unidade ds = new Unidade("DS", "Dose");
+		/*produtos = new HashMap<Long, Produto>();
 		Long i = 0L;
 		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
 		produtos.put(i++, new Produto(i,"Cerveja Skol", 120.0F, 5.0F, un));
@@ -235,17 +252,17 @@ public class ProdutoMB implements Serializable {
 		produtos.put(i++, new Produto(i,"Barra de Cereal", 57.0F, 3F, un));
 		produtos.put(i++, new Produto(i,"Entrada", 1500.0F, 20F, un));
 		produtos.put(i++, new Produto(i,"Meia Entrada", 250.0F, 10F, un));
-		/*produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));
-		produtos.put(i++, new Produto(i,"Cerveja Brahma", 100.0F, 5.5F, un));*/
-		//20
+		//14*/
 		
-		unidades = new ArrayList<Unidade>();
-		unidades.add(un);
-		unidades.add(ds);
+		UnidadeDao unDao = new UnidadeDAOImpl();
+		unidades = unDao.find();
+		
+		if(unidades == null || unidades.isEmpty()){
+
+			unDao.insert(un);
+			unDao.insert(ds);
+			unidades = unDao.find();
+		}
 	}
 
 }

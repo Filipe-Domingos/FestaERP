@@ -42,3 +42,10 @@ body{
 	border-bottom: 1px solid #E5E5E5;
 }
 
+.form_incluir{
+	text-align:left;
+}
+
+.div_form_incluir{
+	margin-left: 220px;
+}

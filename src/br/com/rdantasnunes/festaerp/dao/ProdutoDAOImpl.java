@@ -27,7 +27,7 @@ public class ProdutoDAOImpl implements ProdutoDao, Serializable{
 	
 	@Override
 	public List<Produto> find() {
-		log.info("Finding all produtos");
+		//log.info("Finding all produtos");
 		
 		//checks if the produtos are in the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -36,14 +36,14 @@ public class ProdutoDAOImpl implements ProdutoDao, Serializable{
 		List<Produto> produtos = (List<Produto>) syncCache.get( "PRODUTOS" );
 		
 		if (produtos == null) {
-			log.info("Not found in cache");
+			//log.info("Not found in cache");
 			produtos = ofy().load().type(Produto.class).list();
 		} else {
-			log.info("Using cache!");
+			//log.info("Using cache!");
 		}
 		
 	    if (produtos != null) {
-	    	log.info("Returning " + produtos.size() + " produtos");
+	    	//log.info("Returning " + produtos.size() + " produtos");
 	    }
 	    return produtos;
 	}
@@ -55,7 +55,7 @@ public class ProdutoDAOImpl implements ProdutoDao, Serializable{
 
 	@Override
 	public Long insert(Produto produto) {
-		log.info("Inserting a new produto");
+		//log.info("Inserting a new produto");
 		
 		//invalidates the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -68,7 +68,7 @@ public class ProdutoDAOImpl implements ProdutoDao, Serializable{
 
 	@Override
 	public void delete(Produto produto) {
-		log.info("Deleting a new produto");
+		//log.info("Deleting a new produto");
 		ofy().delete().entity(produto).now();
 	}
 }

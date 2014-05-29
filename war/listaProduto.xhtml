@@ -34,7 +34,9 @@
 					</p:column>
 
 					<p:column headerText="#{msg['label.produto.quantidade']}">
-						<h:outputText value="#{produto.quantidade}" />
+						<h:outputText value="#{produto.quantidade}" >
+							<f:convertNumber locale="pt_BR" />
+						</h:outputText>
 					</p:column>
 
 					<p:column headerText="#{msg['label.produto.valor']}">

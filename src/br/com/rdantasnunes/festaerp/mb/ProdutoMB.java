@@ -189,7 +189,7 @@ public class ProdutoMB implements Serializable {
 			return "";
 		}
 		log.debug("Removeu produto "+produto.getId());
-		return "listaProdutos";
+		return "listaProduto";
 	}
 	
 	/**

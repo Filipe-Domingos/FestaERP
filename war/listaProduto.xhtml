@@ -25,12 +25,14 @@
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15">
                          
-					<p:column headerText="#">
-						<h:outputText value="#{produto.id}" />
+					<p:column headerText="#{msg['label.produto.codigo_barra']}">
+						<h:outputText value="#{produto.codigoBarra}" />
 					</p:column>
 
 					<p:column headerText="#{msg['label.produto.descricao']}">
-						<h:outputText value="#{produto.descricao}" />
+						<h:link outcome="editarProduto" value="#{produto.descricao}" title="#{msg['label.editar']} #{produto.descricao}">
+                 			<f:param name="id" value="#{produto.id}" />
+             			</h:link>
 					</p:column>
 
 					<p:column headerText="#{msg['label.produto.quantidade']}">
@@ -43,6 +45,9 @@
 						<h:outputText value="#{produto.valor}">
 							<f:convertNumber type="currency" />
 						</h:outputText>
+					</p:column>
+					<p:column headerText="#{msg['label.produto.unidade']}">
+						<h:outputText value="#{produto.unidade.descricao}"/>
 					</p:column>
 				</p:dataTable>
 

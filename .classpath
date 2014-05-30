@@ -17,5 +17,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/joda-time-2.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/primefaces-4.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/primefaces-4.0-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/primefaces-extensions-1.1.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-lang3-3.3.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

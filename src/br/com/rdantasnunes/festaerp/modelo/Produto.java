@@ -27,6 +27,9 @@ public class Produto extends SuperEntity<Produto> implements Serializable {
 	private Long id;
 	
 	@Index
+	private String codigoBarra;
+	
+	@Index
 	private String descricao;
 	
 	private Float quantidade;
@@ -40,19 +43,21 @@ public class Produto extends SuperEntity<Produto> implements Serializable {
 		super();
 	}
 
-	public Produto(String descricao, Float quantidade, Float valor,
+	public Produto(String descricao, String codigoBarra, Float quantidade, Float valor,
 			Unidade unidade) {
 		super();
+		this.codigoBarra = codigoBarra;
 		this.descricao = descricao;
 		this.quantidade = quantidade;
 		this.valor = valor;
 		setUnidade(unidade);
 	}
 	
-	public Produto(Long id, String descricao, Float quantidade, Float valor,
+	public Produto(Long id, String descricao, String codigoBarra, Float quantidade, Float valor,
 			Unidade unidade) {
 		super();
 		this.id = id;
+		this.codigoBarra = codigoBarra;
 		this.descricao = descricao;
 		this.quantidade = quantidade;
 		this.valor = valor;
@@ -67,6 +72,14 @@ public class Produto extends SuperEntity<Produto> implements Serializable {
 		this.id = id;
 	}
 
+	public String getCodigoBarra() {
+		return codigoBarra;
+	}
+
+	public void setCodigoBarra(String codigoBarra) {
+		this.codigoBarra = codigoBarra;
+	}
+	
 	public String getDescricao() {
 		return descricao;
 	}
@@ -110,9 +123,9 @@ public class Produto extends SuperEntity<Produto> implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
+				+ ((codigoBarra == null) ? 0 : codigoBarra.hashCode());
 		result = prime * result
-				+ ((unidade_id == null) ? 0 : unidade_id.hashCode());
+				+ ((descricao == null) ? 0 : descricao.hashCode());
 		return result;
 	}
 
@@ -125,15 +138,15 @@ public class Produto extends SuperEntity<Produto> implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
+		if (codigoBarra == null) {
+			if (other.codigoBarra != null)
+				return false;
+		} else if (!codigoBarra.equals(other.codigoBarra))
+			return false;
 		if (descricao == null) {
 			if (other.descricao != null)
 				return false;
 		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (unidade_id == null) {
-			if (other.unidade_id != null)
-				return false;
-		} else if (!unidade_id.equals(other.unidade_id))
 			return false;
 		return true;
 	}

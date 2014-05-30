@@ -2,12 +2,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<h:form styleClass="form_incluir">
-		<p:messages autoUpdate="true" />
 		<p:fieldset legend="#{msg['label.produto']} - #{subtitle}">
+			<p:messages autoUpdate="true"/>
 			<p:panelGrid columns="2">
+				<p:outputLabel value="#{msg['label.produto.codigo_barra']}"
+					for="codigo_barra_id" />
+				<p:inputText id="codigo_barra_id"
+					value="#{produtoMB.produto.codigoBarra}" size="20"
+					label="#{msg['label.produto.codigo_barra']}" required="true">
+					<f:validateLength minimum="5" maximum="100" />
+				</p:inputText>
 				<p:outputLabel value="#{msg['label.produto.descricao']}"
 					for="descricao_id" />
 				<p:inputText id="descricao_id"
@@ -19,19 +27,20 @@
 					value="#{msg['label.produto.quantidade']}" />
 				<p:inputText id="quantidade_id"
 					value="#{produtoMB.produto.quantidade}" size="9"
-					label="#{msg['label.produto.quantidade']}" required="true">
-					<!--f:convertNumber minFractionDigits="2" /-->
-					<f:validateDoubleRange minimum="1" />
+					label="#{msg['label.produto.quantidade']}" required="true"
+					validatorMessage="#{msg['msg.erro.formato.numero.invalido']}">
+					<f:validateDoubleRange minimum="1.0" maximum="1000.0" />
 				</p:inputText>
 				<p:outputLabel for="valor_id" value="#{msg['label.produto.valor']}" />
-				<p:inputText id="valor_id" value="#{produtoMB.produto.valor}" 
+				<p:inputText id="valor_id" value="#{produtoMB.produto.valor}"
 					size="9" label="#{msg['label.produto.valor']}" required="true">
-					<!--f:convertNumber minFractionDigits="2" /-->
 					<f:validateDoubleRange minimum="1" />
 				</p:inputText>
-				<p:outputLabel for="unidade_id"	value="#{msg['label.produto.unidade']}" />
-				<p:selectOneMenu id="unidade_id" value="#{produtoMB.unidade}"
-					converter="unidadeConverter" var="t" style="width:160px" >
+				<p:outputLabel for="unidade_id"
+					value="#{msg['label.produto.unidade']}" />
+				
+				<p:selectOneMenu id="unidade_id" value="#{produtoMB.produto.unidade}"
+					converter="unidadeConverter" var="t" style="width:160px">
 					<f:selectItems value="#{produtoMB.unidades}" var="uns"
 						itemLabel="#{uns.descricao}" itemValue="#{uns}" />
 
@@ -46,7 +55,7 @@
 		<div class="div_form_incluir">
 			<p:commandButton value="#{msg['button.salvar']}"
 				action="#{produtoMB.salvar}" styleClass="btn btn-success" />
-			<p:button value="#{msg['button.cancelar']}" outcome="listaProdutos" />
+			<p:button value="#{msg['button.cancelar']}" outcome="listaProduto" />
 			<p:commandButton value="#{msg['button.excluir']}"
 				action="#{produtoMB.remover}"
 				rendered="#{produtoMB.produto.id != null}" immediate="true" />

@@ -14,12 +14,12 @@
 				<p:inputText id="codigo_barra_id"
 					value="#{produtoMB.produto.codigoBarra}" size="20"
 					label="#{msg['label.produto.codigo_barra']}" required="true">
-					<f:validateLength minimum="5" maximum="100" />
+					<f:validateLength maximum="14" />
 				</p:inputText>
 				<p:outputLabel value="#{msg['label.produto.descricao']}"
 					for="descricao_id" />
 				<p:inputText id="descricao_id"
-					value="#{produtoMB.produto.descricao}" size="80"
+					value="#{produtoMB.produto.descricao}" size="70"
 					label="#{msg['label.produto.descricao']}" required="true">
 					<f:validateLength minimum="5" maximum="100" />
 				</p:inputText>
@@ -29,31 +29,28 @@
 					value="#{produtoMB.produto.quantidade}" size="9"
 					label="#{msg['label.produto.quantidade']}" required="true"
 					validatorMessage="#{msg['msg.erro.formato.numero.invalido']}">
+					<f:converter converterId="numeroConverter" />
 					<f:validateDoubleRange minimum="1.0" maximum="1000.0" />
 				</p:inputText>
 				<p:outputLabel for="valor_id" value="#{msg['label.produto.valor']}" />
 				<p:inputText id="valor_id" value="#{produtoMB.produto.valor}"
 					size="9" label="#{msg['label.produto.valor']}" required="true">
+					<f:converter converterId="numeroConverter" />
 					<f:validateDoubleRange minimum="1" />
 				</p:inputText>
 				<p:outputLabel for="unidade_id"
 					value="#{msg['label.produto.unidade']}" />
 				
-				<p:selectOneMenu id="unidade_id" value="#{produtoMB.produto.unidade}"
-					converter="unidadeConverter" var="t" style="width:160px">
+				<p:selectOneMenu value="#{produtoMB.unidadeId}" id="unidade_id">
 					<f:selectItems value="#{produtoMB.unidades}" var="uns"
-						itemLabel="#{uns.descricao}" itemValue="#{uns}" />
-
-					<p:column>
-						<h:outputText value="#{t.descricao}" />
-					</p:column>
+						itemLabel="#{uns.descricao}" itemValue="#{uns.id}" />
 				</p:selectOneMenu>
 
 			</p:panelGrid>
 		</p:fieldset>
 
 		<div class="div_form_incluir">
-			<p:commandButton value="#{msg['button.salvar']}"
+			<p:commandButton value="#{msg['button.salvar']}" 
 				action="#{produtoMB.salvar}" styleClass="btn btn-success" />
 			<p:button value="#{msg['button.cancelar']}" outcome="listaProduto" />
 			<p:commandButton value="#{msg['button.excluir']}"

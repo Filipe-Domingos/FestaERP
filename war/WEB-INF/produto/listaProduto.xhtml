@@ -18,25 +18,26 @@
 		<p:fieldset legend="#{msg['page.title.lista.produto']}">
 
 			<h:form>
-			
-				<p:dataTable value="#{produtoMB.dmProdutos}" var="produto" emptyMessage="#{msg['label.listaProdutos.vazia']}"
-						 rows="10"
-                         paginator="true"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
-                         
+
+				<p:dataTable value="#{produtoMB.dmProdutos}" var="produto"
+					emptyMessage="#{msg['label.listaProdutos.vazia']}" rows="10"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
 					<p:column headerText="#{msg['label.produto.codigo_barra']}">
 						<h:outputText value="#{produto.codigoBarra}" />
 					</p:column>
 
 					<p:column headerText="#{msg['label.produto.descricao']}">
-						<h:link outcome="editarProduto" value="#{produto.descricao}" title="#{msg['label.editar']} #{produto.descricao}">
-                 			<f:param name="id" value="#{produto.id}" />
-             			</h:link>
+						<h:link outcome="editarProduto" value="#{produto.descricao}"
+							title="#{msg['label.editar']} #{produto.descricao}">
+							<f:param name="id" value="#{produto.id}" />
+						</h:link>
 					</p:column>
 
 					<p:column headerText="#{msg['label.produto.quantidade']}">
-						<h:outputText value="#{produto.quantidade}" >
+						<h:outputText value="#{produto.quantidade}">
 							<f:convertNumber locale="pt_BR" />
 						</h:outputText>
 					</p:column>
@@ -47,12 +48,14 @@
 						</h:outputText>
 					</p:column>
 					<p:column headerText="#{msg['label.produto.unidade']}">
-						<h:outputText value="#{produto.unidade.descricao}"/>
+						<h:outputText value="#{produto.unidade.descricao}" />
 					</p:column>
 				</p:dataTable>
 
-				<h:panelGrid columns="1">
-					<p:commandButton action="#{produtoMB.atualizar}" value="#{msg['button.atualizar']}" />
+				<h:panelGrid columns="2">
+					<p:button outcome="incluirProduto" value="#{msg['button.inserir']}" />
+					<p:commandButton action="#{produtoMB.atualizar}"
+						value="#{msg['button.atualizar']}" />
 				</h:panelGrid>
 			</h:form>
 		</p:fieldset>

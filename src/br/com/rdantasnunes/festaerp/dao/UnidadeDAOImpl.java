@@ -54,7 +54,7 @@ public class UnidadeDAOImpl implements UnidadeDao, Serializable{
 	}
 
 	@Override
-	public Long insert(Unidade unidade) {
+	public Long save(Unidade unidade) {
 		////log.info("Inserting a new unidade");
 		
 		//invalidates the cache

@@ -54,7 +54,7 @@ public class UsuarioDAOImpl implements UsuarioDao, Serializable{
 	}
 
 	@Override
-	public Long insert(Usuario usuario) {
+	public Long save(Usuario usuario) {
 		log.info("Inserting a new usuario");
 		
 		//invalidates the cache

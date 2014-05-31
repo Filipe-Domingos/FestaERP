@@ -34,7 +34,7 @@ public interface Dao<T> {
 	 * @param objects from generic class to be inserted
 	 * @return the generated id
 	 */
-	public Long insert(T t );
+	public Long save(T t );
 	
 	/**
 	 * Remove a specific object from the datastore

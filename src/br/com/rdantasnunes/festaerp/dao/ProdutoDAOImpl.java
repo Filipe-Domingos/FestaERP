@@ -54,7 +54,7 @@ public class ProdutoDAOImpl implements ProdutoDao, Serializable{
 	}
 
 	@Override
-	public Long insert(Produto produto) {
+	public Long save(Produto produto) {
 		//log.info("Inserting a new produto");
 		
 		//invalidates the cache

@@ -54,7 +54,7 @@ public class VendaDAOImpl implements VendaDao, Serializable{
 	}
 
 	@Override
-	public Long insert(Venda venda) {
+	public Long save(Venda venda) {
 		log.info("Inserting a new venda");
 		
 		//invalidates the cache

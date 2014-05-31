@@ -2,11 +2,10 @@ package br.com.rdantasnunes.festaerp.modelo;
 
 import java.io.Serializable;
 
-import javax.persistence.Transient;
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
 /**
@@ -37,7 +36,9 @@ public class Produto extends SuperEntity<Produto> implements Serializable {
 	private Float valor;
 	
 	private Key<Unidade> unidade_id;
-	@Transient private Unidade unidade;
+	
+	@Ignore
+	private Unidade unidade;
 
 	public Produto() {
 		super();
@@ -106,7 +107,7 @@ public class Produto extends SuperEntity<Produto> implements Serializable {
 
 	public Unidade getUnidade() {
 		if(this.unidade == null && unidade_id != null){
-			this.unidade = unidade.get(Unidade.class,unidade_id.getId());
+			this.unidade = (Unidade)get(Unidade.class,unidade_id.getId());
 		}
 		return this.unidade;
 	}

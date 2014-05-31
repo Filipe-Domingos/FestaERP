@@ -54,7 +54,7 @@ public class ComandaDAOImpl implements ComandaDao, Serializable{
 	}
 
 	@Override
-	public Long insert(Comanda comanda) {
+	public Long save(Comanda comanda) {
 		log.info("Inserting a new comanda");
 		
 		//invalidates the cache

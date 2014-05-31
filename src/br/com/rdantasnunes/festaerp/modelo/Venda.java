@@ -3,11 +3,10 @@ package br.com.rdantasnunes.festaerp.modelo;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Transient;
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
 /**
@@ -28,19 +27,19 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 	private Long id;
 	
 	private Key<Festa> festa_id;
-	@Transient private Festa festa;
+	@Ignore private Festa festa;
 	
 	private Key<Produto> produto_id;
-	@Transient private Produto produto;
+	@Ignore private Produto produto;
 	
 	private Key<Caixa> caixa_id;
-	@Transient private Caixa caixa;
+	@Ignore private Caixa caixa;
 	
 	private Key<Usuario> usuario_id;
-	@Transient private Usuario usuario;
+	@Ignore private Usuario usuario;
 	
 	private Key<Comanda> comanda_id;//uma comanda pode ser atribuida a uma mesa, e entao o consumo da mesa sera lancado na comanda.
-	@Transient private Comanda comanda;
+	@Ignore private Comanda comanda;
 	
 	@Index
 	private Date dataVenda;
@@ -77,7 +76,7 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 
 	public Festa getFesta() {
 		if(this.festa == null && festa_id != null){
-			this.festa = festa.get(Festa.class,festa_id.getId());
+			this.festa = (Festa)get(Festa.class,festa_id.getId());
 		}
 		return this.festa;
 	}
@@ -91,7 +90,7 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 
 	public Produto getProduto() {
 		if(this.produto == null && produto_id != null){
-			this.produto = produto.get(Produto.class,produto_id.getId());
+			this.produto = (Produto)get(Produto.class,produto_id.getId());
 		}
 		return this.produto;
 	}
@@ -105,7 +104,7 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 
 	public Caixa getCaixa() {
 		if(this.caixa == null && caixa_id != null){
-			this.caixa = caixa.get(Caixa.class,caixa_id.getId());
+			this.caixa = (Caixa)get(Caixa.class,caixa_id.getId());
 		}
 		return this.caixa;
 	}
@@ -119,7 +118,7 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 
 	public Usuario getUsuario() {
 		if(this.usuario == null && usuario_id != null){
-			this.usuario = usuario.get(Usuario.class,usuario_id.getId());
+			this.usuario = (Usuario)get(Usuario.class,usuario_id.getId());
 		}
 		return this.usuario;
 	}
@@ -133,7 +132,7 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 
 	public Comanda getComanda() {
 		if(this.comanda == null && comanda_id != null){
-			this.comanda = comanda.get(Comanda.class,comanda_id.getId());
+			this.comanda = (Comanda)get(Comanda.class,comanda_id.getId());
 		}
 		return this.comanda;
 	}

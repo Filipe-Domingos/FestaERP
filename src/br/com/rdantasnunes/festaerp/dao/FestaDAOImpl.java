@@ -54,7 +54,7 @@ public class FestaDAOImpl implements FestaDao, Serializable{
 	}
 
 	@Override
-	public Long insert(Festa festa) {
+	public Long save(Festa festa) {
 		log.info("Inserting a new festa");
 		
 		//invalidates the cache

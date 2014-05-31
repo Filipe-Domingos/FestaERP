@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
@@ -32,7 +33,7 @@ import br.com.rdantasnunes.festaerp.modelo.Unidade;
  * <p>Esse componente atua com um papel parecido com o <code>Controller</code> de outros frameworks <code>MVC</code>, ele resolve o fluxo de navegacao e liga os componentes visuais com os dados.</p>
  * 
  * @author  Rodrigo Dantas Nunes - http://www.linkedin.com/in/rdantasnunes - rdantasnunes(at)gmail(dot)com
- * Criado com base na classe MB de Yaw Tecnologia
+ * 
  *  
  */
 @ManagedBean
@@ -62,7 +63,11 @@ public class ProdutoMB implements Serializable {
 	 * Listagem das unidades de medidas disponiveis no sistema
 	 */
 	private List<Unidade> unidades;
-	private Unidade unidade;
+	
+	/**
+	 * Id da Unidade de medida deste produto.
+	 */
+	private Long unidadeId;
 	
 	/**
 	 * Mantem as produtos apresentadas na listagem indexadas pelo id.
@@ -76,22 +81,6 @@ public class ProdutoMB implements Serializable {
 	public ProdutoMB() {
 		dao = new ProdutoDAOImpl();
 		fillProdutos();
-	}
-	
-	public Produto getProduto() {
-		return produto;
-	}
-	
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-	
-	public void setIdSelecionado(Long idSelecionado) {
-		this.idSelecionado = idSelecionado;
-	}
-	
-	public Long getIdSelecionado() {
-		return idSelecionado;
 	}
 	
 	/**
@@ -119,9 +108,24 @@ public class ProdutoMB implements Serializable {
 			unidades = unDao.find();
 		} catch(Exception ex) {
 			log.error("Erro ao carregar a lista de produtos.", ex);
-			addMessage(getMessageFromI18N("msg.erro.listar.produto"), ex.getMessage());
+			addMessage(getMessageFromI18N("msg.erro.listar.produto"), ex.getMessage(),FacesMessage.SEVERITY_ERROR);
 		}
-		
+	}
+	
+	/**
+	 * Operacao acionada pela tela de listagem, atraves do <code>commandButton</code> <strong>Atualizar</strong>. 
+	 */
+	public void atualizar() {
+		fillProdutos();
+	}
+	
+	/**
+	 * Operacao acionada toda a vez que a tela de listagem for carregada.
+	 */
+	public void reset() {
+		produto = null;
+		unidadeId = null;
+		idSelecionado = null;
 	}
 	
 	/**
@@ -129,6 +133,7 @@ public class ProdutoMB implements Serializable {
 	 */
 	public void incluir(){
 		produto = new Produto();
+		unidadeId = null;
 		log.debug("Pronto pra incluir");
 	}
 	
@@ -140,6 +145,7 @@ public class ProdutoMB implements Serializable {
 			return;
 		}
 		produto = produtos.get(idSelecionado);
+		unidadeId = produto.getUnidade().getId();
 		log.debug("Pronto pra editar");
 	}
 
@@ -149,30 +155,20 @@ public class ProdutoMB implements Serializable {
 	 */
 	public String salvar() {
 		try {
-			dao.insert(produto);
+			if(unidadeId != null){
+				Unidade unidade = new UnidadeDAOImpl().find(unidadeId);
+				produto.setUnidade(unidade);
+				unidadeId = null;
+			}
+			dao.save(produto);
 			produtos.put(produto.getId(), produto);
 		} catch(Exception ex) {
 			log.error("Erro ao salvar produto.", ex);
-			addMessage(getMessageFromI18N("msg.erro.salvar.produto"), ex.getMessage());
+			addMessage(getMessageFromI18N("msg.erro.salvar.produto"), ex.getMessage(),FacesMessage.SEVERITY_ERROR);
 			return "";
 		}
 		log.debug("Salvour produto "+produto.getId());
-		return "listaProduto";
-	}
-	
-	/**
-	 * Operacao acionada pela tela de listagem, atraves do <code>commandButton</code> <strong>Atualizar</strong>. 
-	 */
-	public void atualizar() {
-		fillProdutos();
-	}
-	
-	/**
-	 * Operacao acionada toda a vez que a  tela de listagem for carregada.
-	 */
-	public void reset() {
-		produto = null;
-		idSelecionado = null;
+		return "listaProduto?faces-redirect=true";
 	}
 	
 	/**
@@ -185,11 +181,11 @@ public class ProdutoMB implements Serializable {
 			produtos.remove(produto.getId());
 		} catch(Exception ex) {
 			log.error("Erro ao remover produto.", ex);
-			addMessage(getMessageFromI18N("msg.erro.remover.produto"), ex.getMessage());
+			addMessage(getMessageFromI18N("msg.erro.remover.produto"), ex.getMessage(),FacesMessage.SEVERITY_ERROR);
 			return "";
 		}
 		log.debug("Removeu produto "+produto.getId());
-		return "listaProduto";
+		return "listaProduto?faces-redirect=true";
 	}
 	
 	/**
@@ -206,11 +202,27 @@ public class ProdutoMB implements Serializable {
 	 * @param summary
 	 * @param detail
 	 */
-	private void addMessage(String summary, String detail) {
+	private void addMessage(String summary, String detail, Severity tipoMensagem) {
 		if(detail == null){
 			detail = "";
 		}
-		getCurrentInstance().addMessage(null, new FacesMessage(summary, summary.concat("<br/>").concat(detail)));
+		getCurrentInstance().addMessage(null, new FacesMessage(tipoMensagem, summary, summary.concat("<br/>").concat(detail)));
+	}
+	
+	public Produto getProduto() {
+		return produto;
+	}
+	
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+	
+	public void setIdSelecionado(Long idSelecionado) {
+		this.idSelecionado = idSelecionado;
+	}
+	
+	public Long getIdSelecionado() {
+		return idSelecionado;
 	}
 	
 	public List<Unidade> getUnidades() {
@@ -221,18 +233,15 @@ public class ProdutoMB implements Serializable {
 		this.unidades = unidades;
 	}
 	
-	public Unidade getUnidade() {
-		return unidade;
+	public Long getUnidadeId() {
+		return unidadeId;
 	}
 
-	public void setUnidade(Unidade unidade) {
-		if(this.produto != null){
-			this.produto.setUnidade(unidade);
-		}
-		this.unidade = unidade;
+	public void setUnidadeId(Long unidadeId) {
+		this.unidadeId = unidadeId;
 	}
 
-	{
+	/*{
 		Unidade un = new Unidade("UN", "Unidade");
 		Unidade ds = new Unidade("DS", "Dose");
 		/*produtos = new HashMap<Long, Produto>();
@@ -252,17 +261,25 @@ public class ProdutoMB implements Serializable {
 		produtos.put(i++, new Produto(i,"Barra de Cereal", 57.0F, 3F, un));
 		produtos.put(i++, new Produto(i,"Entrada", 1500.0F, 20F, un));
 		produtos.put(i++, new Produto(i,"Meia Entrada", 250.0F, 10F, un));
-		//14*/
+		//14
 		
 		UnidadeDao unDao = new UnidadeDAOImpl();
 		unidades = unDao.find();
 		
 		if(unidades == null || unidades.isEmpty()){
 
-			unDao.insert(un);
-			unDao.insert(ds);
+			unDao.save(un);
+			unDao.save(ds);
 			unidades = unDao.find();
 		}
-	}
-
+		try{
+		dao = new ProdutoDAOImpl();
+		for(Produto p:dao.find()){
+			p.setUnidade(ds);
+			dao.insert(p);
+		}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}*/
 }

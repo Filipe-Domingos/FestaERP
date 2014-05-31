@@ -54,7 +54,7 @@ public class CaixaDAOImpl implements CaixaDao, Serializable{
 	}
 
 	@Override
-	public Long insert(Caixa caixa) {
+	public Long save(Caixa caixa) {
 		log.info("Inserting a new caixa");
 		
 		//invalidates the cache

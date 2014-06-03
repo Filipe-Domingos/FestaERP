@@ -1,0 +1,38 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:form styleClass="form_incluir">
+		<p:fieldset legend="#{msg['label.unidade']} - #{subtitle}">
+			<p:messages autoUpdate="true"/>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="#{msg['label.unidade.sigla']}"
+					for="sigla_id" />
+				<p:inputText id="sigla_id"
+					value="#{unidadeMB.unidade.sigla}" size="6"
+					label="#{msg['label.unidade.sigla']}" required="true">
+					<f:validateLength maximum="5" />
+				</p:inputText>
+				<p:outputLabel value="#{msg['label.unidade.descricao']}"
+					for="descricao_id" />
+				<p:inputText id="descricao_id"
+					value="#{unidadeMB.unidade.descricao}" size="70"
+					label="#{msg['label.unidade.descricao']}" required="true">
+					<f:validateLength minimum="2" maximum="70" />
+				</p:inputText>
+			</p:panelGrid>
+		</p:fieldset>
+
+		<div class="div_form_incluir">
+			<p:commandButton value="#{msg['button.salvar']}" 
+				action="#{unidadeMB.salvar}" styleClass="btn btn-success" />
+			<p:button value="#{msg['button.cancelar']}" outcome="listaUnidade" />
+			<p:commandButton value="#{msg['button.excluir']}"
+				action="#{unidadeMB.remover}"
+				rendered="#{unidadeMB.unidade.id != null}" immediate="true" />
+		</div>
+	</h:form>
+</ui:fragment>

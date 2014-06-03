@@ -27,7 +27,7 @@ public class CaixaDAOImpl implements CaixaDao, Serializable{
 	
 	@Override
 	public List<Caixa> find() {
-		log.info("Finding all caixas");
+		//log.info("Finding all caixas");
 		
 		//checks if the caixas are in the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -36,14 +36,14 @@ public class CaixaDAOImpl implements CaixaDao, Serializable{
 		List<Caixa> caixas = (List<Caixa>) syncCache.get( "CAIXAS" );
 		
 		if (caixas == null) {
-			log.info("Not found in cache");
+			//log.info("Not found in cache");
 			caixas = ofy().load().type(Caixa.class).list();
 		} else {
-			log.info("Using cache!");
+			//log.info("Using cache!");
 		}
 		
 	    if (caixas != null) {
-	    	log.info("Returning " + caixas.size() + " caixas");
+	    	//log.info("Returning " + caixas.size() + " caixas");
 	    }
 	    return caixas;
 	}
@@ -55,7 +55,7 @@ public class CaixaDAOImpl implements CaixaDao, Serializable{
 
 	@Override
 	public Long save(Caixa caixa) {
-		log.info("Inserting a new caixa");
+		//log.info("Inserting a new caixa");
 		
 		//invalidates the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -68,7 +68,7 @@ public class CaixaDAOImpl implements CaixaDao, Serializable{
 
 	@Override
 	public void delete(Caixa caixa) {
-		log.info("Deleting a new caixa");
+		//log.info("Deleting a new caixa");
 		ofy().delete().entity(caixa).now();
 	}
 }

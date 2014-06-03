@@ -25,37 +25,37 @@
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>listaProdutos</from-outcome>
-			<to-view-id>/WEB-INF/produto/listaProdutos.xhtml</to-view-id>
+			<to-view-id>/produto/listaProdutos.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listaCaixas</from-outcome>
-			<to-view-id>/WEB-INF/caixa/listaCaixas.xhtml</to-view-id>
+			<to-view-id>/caixa/listaCaixas.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listaUnidades</from-outcome>
-			<to-view-id>/WEB-INF/unidade/listaUnidades.xhtml</to-view-id>
+			<to-view-id>/unidade/listaUnidades.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listaComandas</from-outcome>
-			<to-view-id>/WEB-INF/comanda/listaComandas.xhtml</to-view-id>
+			<to-view-id>/comanda/listaComandas.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listaFestas</from-outcome>
-			<to-view-id>/WEB-INF/festa/listaFestas.xhtml</to-view-id>
+			<to-view-id>/festa/listaFestas.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listaUsuarios</from-outcome>
-			<to-view-id>/WEB-INF/usuario/listaUsuarios.xhtml</to-view-id>
+			<to-view-id>/usuario/listaUsuarios.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listaVendas</from-outcome>
-			<to-view-id>/WEB-INF/venda/listaVendas.xhtml</to-view-id>
+			<to-view-id>/venda/listaVendas.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>		
 	</navigation-rule>

@@ -1,0 +1,38 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:form styleClass="form_incluir">
+		<p:fieldset legend="#{msg['label.caixa']} - #{subtitle}">
+			<p:messages autoUpdate="true"/>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="#{msg['label.caixa.codigo']}"
+					for="codigo_id" />
+				<p:inputText id="codigo_id"
+					value="#{caixaMB.caixa.codigo}" size="6"
+					label="#{msg['label.caixa.codigo']}" required="true">
+					<f:validateLength maximum="5" />
+				</p:inputText>
+				<p:outputLabel value="#{msg['label.caixa.nome']}"
+					for="nome_id" />
+				<p:inputText id="nome_id"
+					value="#{caixaMB.caixa.nome}" size="70"
+					label="#{msg['label.caixa.nome']}" required="true">
+					<f:validateLength minimum="2" maximum="70" />
+				</p:inputText>
+			</p:panelGrid>
+		</p:fieldset>
+
+		<div class="div_form_incluir">
+			<p:commandButton value="#{msg['button.salvar']}" 
+				action="#{caixaMB.salvar}" styleClass="btn btn-success" />
+			<p:button value="#{msg['button.cancelar']}" outcome="listaCaixa" />
+			<p:commandButton value="#{msg['button.excluir']}"
+				action="#{caixaMB.remover}"
+				rendered="#{caixaMB.caixa.id != null}" immediate="true" />
+		</div>
+	</h:form>
+</ui:fragment>

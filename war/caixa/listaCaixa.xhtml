@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/layout/template.xhtml">
+	<ui:define name="pageTitle">
+		<h:outputText value="#{msg['page.title.lista.caixa']}" />
+	</ui:define>
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{caixaMB.reset}" />
+	</f:metadata>
+
+	<ui:define name="content">
+
+		<p:fieldset legend="#{msg['page.title.lista.caixa']}">
+
+			<h:form>
+
+				<p:dataTable value="#{caixaMB.dmCaixas}" var="caixa"
+					emptyMessage="#{msg['label.listaCaixas.vazia']}">
+
+					<p:column headerText="#{msg['label.caixa.codigo']}">
+						<h:outputText value="#{caixa.codigo}" />
+					</p:column>
+
+					<p:column headerText="#{msg['label.caixa.nome']}">
+						<h:link outcome="editarCaixa" value="#{caixa.nome}"
+							title="#{msg['label.editar']} #{caixa.nome}">
+							<f:param name="id" value="#{caixa.id}" />
+						</h:link>
+					</p:column>
+
+				</p:dataTable>
+
+				<h:panelGrid columns="2">
+					<p:button outcome="incluirCaixa" value="#{msg['button.inserir']}" />
+					<p:commandButton action="#{caixaMB.atualizar}"
+						value="#{msg['button.atualizar']}" />
+				</h:panelGrid>
+			</h:form>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>
+</html>

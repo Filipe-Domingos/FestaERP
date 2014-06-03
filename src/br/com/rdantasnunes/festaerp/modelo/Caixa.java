@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * 
@@ -21,15 +22,19 @@ public class Caixa extends SuperEntity<Caixa> implements Serializable {
 	@Id
 	private Long id;
 	
+	@Index
+	private String codigo;
+	
 	private String nome;
 	
 	public Caixa() {
 		super();
 	}
 
-	public Caixa(String nome) {
+	public Caixa(String nome, String codigo) {
 		super();
 		this.nome = nome;
+		this.codigo = codigo;
 	}
 
 	public Long getId() {
@@ -48,11 +53,19 @@ public class Caixa extends SuperEntity<Caixa> implements Serializable {
 		this.nome = nome;
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
 
@@ -65,16 +78,16 @@ public class Caixa extends SuperEntity<Caixa> implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Caixa other = (Caixa) obj;
-		if (nome == null) {
-			if (other.nome != null)
+		if (codigo == null) {
+			if (other.codigo != null)
 				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Caixa [nome=" + nome + "]";
+		return codigo;
 	}
 }

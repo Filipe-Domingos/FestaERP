@@ -1,0 +1,39 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:form styleClass="form_incluir">
+		<p:fieldset legend="#{msg['label.comanda']} - #{subtitle}">
+			<p:messages autoUpdate="true"/>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="#{msg['label.comanda.numeroMesa']}"
+					for="numeroMesa_id" />
+				<p:inputText id="numeroMesa_id"
+					value="#{comandaMB.comanda.numeroMesa}" size="6"
+					label="#{msg['label.comanda.numeroMesa']}" required="true">
+					<f:validateLength maximum="5" />
+					<f:convertNumber integerOnly="true" />
+				</p:inputText>
+				<p:outputLabel value="#{msg['label.comanda.identificacaoResponsavel']}"
+					for="identificacaoResponsavel_id" />
+				<p:inputText id="identificacaoResponsavel_id"
+					value="#{comandaMB.comanda.identificacaoResponsavel}" size="20"
+					label="#{msg['label.comanda.identificacaoResponsavel']}" required="true">
+					<f:validateLength minimum="5" maximum="20" />
+				</p:inputText>
+			</p:panelGrid>
+		</p:fieldset>
+
+		<div class="div_form_incluir">
+			<p:commandButton value="#{msg['button.salvar']}" 
+				action="#{comandaMB.salvar}" styleClass="btn btn-success" />
+			<p:button value="#{msg['button.cancelar']}" outcome="listaComanda" />
+			<p:commandButton value="#{msg['button.excluir']}"
+				action="#{comandaMB.remover}"
+				rendered="#{comandaMB.comanda.id != null}" immediate="true" />
+		</div>
+	</h:form>
+</ui:fragment>

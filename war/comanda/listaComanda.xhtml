@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/layout/template.xhtml">
+	<ui:define name="pageTitle">
+		<h:outputText value="#{msg['page.title.lista.comanda']}" />
+	</ui:define>
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{comandaMB.reset}" />
+	</f:metadata>
+
+	<ui:define name="content">
+
+		<p:fieldset legend="#{msg['page.title.lista.comanda']}">
+
+			<h:form>
+
+				<p:dataTable value="#{comandaMB.dmComandas}" var="comanda"
+					emptyMessage="#{msg['label.listaComandas.vazia']}">
+
+					<p:column headerText="#{msg['label.comanda.numeroMesa']}">
+						<h:outputText value="#{comanda.numeroMesa}" />
+					</p:column>
+
+					<p:column headerText="#{msg['label.comanda.identificacaoResponsavel']}">
+						<h:link outcome="editarComanda" value="#{comanda.identificacaoResponsavel}"
+							title="#{msg['label.editar']} #{comanda.identificacaoResponsavel}">
+							<f:param name="id" value="#{comanda.id}" />
+						</h:link>
+					</p:column>
+
+				</p:dataTable>
+
+				<h:panelGrid columns="2">
+					<p:button outcome="incluirComanda" value="#{msg['button.inserir']}" />
+					<p:commandButton action="#{comandaMB.atualizar}"
+						value="#{msg['button.atualizar']}" />
+				</h:panelGrid>
+			</h:form>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>
+</html>

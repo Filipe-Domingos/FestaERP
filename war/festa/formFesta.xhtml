@@ -1,0 +1,47 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:form styleClass="form_incluir">
+		<p:fieldset legend="#{msg['label.festa']} - #{subtitle}">
+			<p:messages autoUpdate="true" />
+			<p:panelGrid columns="2">
+				<p:outputLabel value="#{msg['label.festa.titulo']}"
+					for="titulo_id" />
+				<p:inputText id="titulo_id" value="#{festaMB.festa.titulo}"
+					size="60" label="#{msg['label.festa.titulo']}" required="true">
+					<f:validateLength minimum="6" maximum="100" />
+				</p:inputText>
+				<p:outputLabel
+					value="#{msg['label.festa.responsavel']}"
+					for="responsavel_id" />
+				<p:inputText id="responsavel_id"
+					value="#{festaMB.festa.responsavel}" size="80"
+					label="#{msg['label.festa.responsavel']}"
+					required="true">
+					<f:validateLength minimum="5" maximum="100" />
+				</p:inputText>
+
+				<p:outputLabel for="dataInicio_id" value="#{msg['label.festa.dataInicio']}" />
+				<p:calendar id="dataInicio_id" value="#{festaMB.festa.dataInicio}"
+					pattern="dd-MM-yyyy" mask="true" />
+
+				<p:outputLabel for="dataFim_id" value="#{msg['label.festa.dataFim']}" />
+				<p:calendar id="dataFim_id" value="#{festaMB.festa.dataFim}"
+					pattern="dd-MM-yyyy" mask="true" />
+			</p:panelGrid>
+		</p:fieldset>
+
+		<div class="div_form_incluir">
+			<p:commandButton value="#{msg['button.salvar']}"
+				action="#{festaMB.salvar}" styleClass="btn btn-success" />
+			<p:button value="#{msg['button.cancelar']}" outcome="listaFesta" />
+			<p:commandButton value="#{msg['button.excluir']}"
+				action="#{festaMB.remover}" rendered="#{festaMB.festa.id != null}"
+				immediate="true" />
+		</div>
+	</h:form>
+</ui:fragment>

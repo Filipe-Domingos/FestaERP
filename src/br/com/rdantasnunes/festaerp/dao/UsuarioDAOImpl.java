@@ -27,7 +27,7 @@ public class UsuarioDAOImpl implements UsuarioDao, Serializable{
 	
 	@Override
 	public List<Usuario> find() {
-		log.info("Finding all usuarios");
+		//log.info("Finding all usuarios");
 		
 		//checks if the usuarios are in the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -36,14 +36,14 @@ public class UsuarioDAOImpl implements UsuarioDao, Serializable{
 		List<Usuario> usuarios = (List<Usuario>) syncCache.get( "USUARIOS" );
 		
 		if (usuarios == null) {
-			log.info("Not found in cache");
+			//log.info("Not found in cache");
 			usuarios = ofy().load().type(Usuario.class).list();
 		} else {
-			log.info("Using cache!");
+			//log.info("Using cache!");
 		}
 		
 	    if (usuarios != null) {
-	    	log.info("Returning " + usuarios.size() + " usuarios");
+	    	//log.info("Returning " + usuarios.size() + " usuarios");
 	    }
 	    return usuarios;
 	}
@@ -55,7 +55,7 @@ public class UsuarioDAOImpl implements UsuarioDao, Serializable{
 
 	@Override
 	public Long save(Usuario usuario) {
-		log.info("Inserting a new usuario");
+		//log.info("Inserting a new usuario");
 		
 		//invalidates the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -68,7 +68,7 @@ public class UsuarioDAOImpl implements UsuarioDao, Serializable{
 
 	@Override
 	public void delete(Usuario usuario) {
-		log.info("Deleting a new usuario");
+		//log.info("Deleting a new usuario");
 		ofy().delete().entity(usuario).now();
 	}
 }

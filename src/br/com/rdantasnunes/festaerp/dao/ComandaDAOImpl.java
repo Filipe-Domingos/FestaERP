@@ -27,7 +27,7 @@ public class ComandaDAOImpl implements ComandaDao, Serializable{
 	
 	@Override
 	public List<Comanda> find() {
-		log.info("Finding all comandas");
+		//log.info("Finding all comandas");
 		
 		//checks if the comandas are in the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -36,14 +36,14 @@ public class ComandaDAOImpl implements ComandaDao, Serializable{
 		List<Comanda> comandas = (List<Comanda>) syncCache.get( "COMANDAS" );
 		
 		if (comandas == null) {
-			log.info("Not found in cache");
+			//log.info("Not found in cache");
 			comandas = ofy().load().type(Comanda.class).list();
 		} else {
-			log.info("Using cache!");
+			//log.info("Using cache!");
 		}
 		
 	    if (comandas != null) {
-	    	log.info("Returning " + comandas.size() + " comandas");
+	    	//log.info("Returning " + comandas.size() + " comandas");
 	    }
 	    return comandas;
 	}
@@ -55,7 +55,7 @@ public class ComandaDAOImpl implements ComandaDao, Serializable{
 
 	@Override
 	public Long save(Comanda comanda) {
-		log.info("Inserting a new comanda");
+		//log.info("Inserting a new comanda");
 		
 		//invalidates the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -68,7 +68,7 @@ public class ComandaDAOImpl implements ComandaDao, Serializable{
 
 	@Override
 	public void delete(Comanda comanda) {
-		log.info("Deleting a new comanda");
+		//log.info("Deleting a new comanda");
 		ofy().delete().entity(comanda).now();
 	}
 }

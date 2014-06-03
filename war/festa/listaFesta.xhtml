@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/layout/template.xhtml">
+	<ui:define name="pageTitle">
+		<h:outputText value="#{msg['page.title.lista.festa']}" />
+	</ui:define>
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{festaMB.reset}" />
+	</f:metadata>
+
+	<ui:define name="content">
+
+		<p:fieldset legend="#{msg['page.title.lista.festa']}">
+
+			<h:form>
+
+				<p:dataTable value="#{festaMB.dmFestas}" var="festa"
+					emptyMessage="#{msg['label.listaFestas.vazia']}" rows="10"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
+					<p:column headerText="#{msg['label.festa.responsavel']}">
+						<h:outputText value="#{festa.responsavel}" />
+					</p:column>
+
+					<p:column headerText="#{msg['label.festa.titulo']}">
+						<h:link outcome="editarFesta" value="#{festa.titulo}"
+							title="#{msg['label.editar']} #{festa.titulo}">
+							<f:param name="id" value="#{festa.id}" />
+						</h:link>
+					</p:column>
+					
+					<p:column headerText="#{msg['label.festa.dataInicio']}">
+						<h:outputText value="#{festa.dataInicio}">
+							<f:convertDateTime dateStyle="medium" type="date" ></f:convertDateTime>
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="#{msg['label.festa.dataFim']}">
+						<h:outputText value="#{festa.dataFim}">
+							<f:convertDateTime dateStyle="medium" type="date" ></f:convertDateTime>
+						</h:outputText>
+					</p:column>
+
+				</p:dataTable>
+
+				<h:panelGrid columns="2">
+					<p:button outcome="incluirFesta" value="#{msg['button.inserir']}" />
+					<p:commandButton action="#{festaMB.atualizar}"
+						value="#{msg['button.atualizar']}" />
+				</h:panelGrid>
+			</h:form>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>
+</html>

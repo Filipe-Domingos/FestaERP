@@ -27,7 +27,7 @@ public class FestaDAOImpl implements FestaDao, Serializable{
 	
 	@Override
 	public List<Festa> find() {
-		log.info("Finding all festas");
+		//log.info("Finding all festas");
 		
 		//checks if the festas are in the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -36,14 +36,14 @@ public class FestaDAOImpl implements FestaDao, Serializable{
 		List<Festa> festas = (List<Festa>) syncCache.get( "FESTAS" );
 		
 		if (festas == null) {
-			log.info("Not found in cache");
+			//log.info("Not found in cache");
 			festas = ofy().load().type(Festa.class).list();
 		} else {
-			log.info("Using cache!");
+			//log.info("Using cache!");
 		}
 		
 	    if (festas != null) {
-	    	log.info("Returning " + festas.size() + " festas");
+	    	//log.info("Returning " + festas.size() + " festas");
 	    }
 	    return festas;
 	}
@@ -55,7 +55,7 @@ public class FestaDAOImpl implements FestaDao, Serializable{
 
 	@Override
 	public Long save(Festa festa) {
-		log.info("Inserting a new festa");
+		//log.info("Inserting a new festa");
 		
 		//invalidates the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -68,7 +68,7 @@ public class FestaDAOImpl implements FestaDao, Serializable{
 
 	@Override
 	public void delete(Festa festa) {
-		log.info("Deleting a new festa");
+		//log.info("Deleting a new festa");
 		ofy().delete().entity(festa).now();
 	}
 }

@@ -1,0 +1,57 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:form styleClass="form_incluir">
+		<p:fieldset legend="#{msg['label.usuario']} - #{subtitle}">
+			<p:messages autoUpdate="true"/>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="#{msg['label.usuario.nome']}"
+					for="nome_id" />
+				<p:inputText id="nome_id"
+					value="#{usuarioMB.usuario.nome}" size="40"
+					label="#{msg['label.usuario.nome']}" required="true">
+					<f:validateLength maximum="50" />
+				</p:inputText>
+				<p:outputLabel value="#{msg['label.usuario.login']}"
+					for="login_id" />
+				<p:inputText id="login_id"
+					value="#{usuarioMB.usuario.login}" size="20"
+					label="#{msg['label.usuario.login']}" required="true">
+					<f:validateLength minimum="6" maximum="15" />
+				</p:inputText>
+				<p:outputLabel for="senha_id"
+					value="#{msg['label.usuario.senha']}" />
+				<p:password id="senha_id"
+					value="#{usuarioMB.usuario.senha}" size="20"
+					label="#{msg['label.usuario.senha']}" required="true">
+					<f:validateLength minimum="3" maximum="15" />
+				</p:password>
+				<p:outputLabel for="confirma_senha_id"
+					value="#{msg['label.usuario.confirma_senha']}" />
+				<p:password id="confirma_senha_id"
+					value="#{usuarioMB.confirmaSenha}" size="20"
+					label="#{msg['label.usuario.confirma_senha']}" required="true">
+					<f:validateLength minimum="3" maximum="15" />
+				</p:password>
+				<p:outputLabel for="admin_id" value="#{msg['label.usuario.admin']}" />
+				<p:selectBooleanCheckbox id="admin_id" value="#{usuarioMB.usuario.admin}"
+					 label="#{msg['label.usuario.admin']}" required="true">
+				</p:selectBooleanCheckbox>
+
+			</p:panelGrid>
+		</p:fieldset>
+
+		<div class="div_form_incluir">
+			<p:commandButton value="#{msg['button.salvar']}" 
+				action="#{usuarioMB.salvar}" styleClass="btn btn-success" />
+			<p:button value="#{msg['button.cancelar']}" outcome="listaUsuario" />
+			<p:commandButton value="#{msg['button.excluir']}"
+				action="#{usuarioMB.remover}"
+				rendered="#{usuarioMB.usuario.id != null}" immediate="true" />
+		</div>
+	</h:form>
+</ui:fragment>

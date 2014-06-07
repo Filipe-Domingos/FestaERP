@@ -5,25 +5,23 @@ import static br.com.rdantasnunes.festaerp.dao.OfyService.ofy;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import br.com.rdantasnunes.festaerp.idao.UsuarioDao;
+import br.com.rdantasnunes.festaerp.modelo.Usuario;
 
 import com.google.appengine.api.memcache.ErrorHandlers;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.googlecode.objectify.Key;
-
-import br.com.rdantasnunes.festaerp.idao.UsuarioDao;
-import br.com.rdantasnunes.festaerp.modelo.Usuario;
 
 @Singleton
 public class UsuarioDAOImpl implements UsuarioDao, Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private Logger log;
+	//@Inject
+	//private Logger log;
 	
 	@Override
 	public List<Usuario> find() {
@@ -70,5 +68,24 @@ public class UsuarioDAOImpl implements UsuarioDao, Serializable{
 	public void delete(Usuario usuario) {
 		//log.info("Deleting a new usuario");
 		ofy().delete().entity(usuario).now();
+	}
+	
+	@Override
+	public boolean logar(Usuario usuario){
+		if(usuario == null || usuario.getLogin() == null|| usuario.getSenha() == null)
+			return false;
+		try{
+			List<Usuario> usuarios = ofy().load().type(Usuario.class).filter("login =", usuario.getLogin()).list();
+			if(usuarios.isEmpty())
+				return false;
+			
+			Usuario u = usuarios.get(0);
+			if(u == null){
+				return false;
+			}
+			return (u.getSenha().equals(usuario.getSenha()));
+		}catch(NullPointerException n){
+			return false;
+		}
 	}
 }

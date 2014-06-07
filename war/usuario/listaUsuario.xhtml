@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/layout/template.xhtml">
+	<ui:define name="pageTitle">
+		<h:outputText value="#{msg['page.title.lista.usuario']}" />
+	</ui:define>
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{usuarioMB.reset}" />
+	</f:metadata>
+
+	<ui:define name="content">
+
+		<p:fieldset legend="#{msg['page.title.lista.usuario']}">
+
+			<h:form>
+
+				<p:dataTable value="#{usuarioMB.dmUsuarios}" var="usuario"
+					emptyMessage="#{msg['label.listaUsuarios.vazia']}">
+
+					<p:column headerText="#{msg['label.usuario.nome']}">
+						<h:outputText value="#{usuario.nome}" />
+					</p:column>
+
+					<p:column headerText="#{msg['label.usuario.login']}">
+						<h:link outcome="editarUsuario" value="#{usuario.login}"
+							title="#{msg['label.editar']} #{usuario.login}">
+							<f:param name="id" value="#{usuario.id}" />
+						</h:link>
+					</p:column>
+
+					<p:column headerText="#{msg['label.usuario.admin']}">
+						<h:outputLabel value="#{usuario.admin?msg['label.admin.sim']:msg['label.admin.nao']}" />
+					</p:column>
+				</p:dataTable>
+
+				<h:panelGrid columns="2">
+					<p:button outcome="incluirUsuario" value="#{msg['button.inserir']}" />
+					<p:commandButton action="#{usuarioMB.atualizar}"
+						value="#{msg['button.atualizar']}" />
+				</h:panelGrid>
+			</h:form>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>
+</html>

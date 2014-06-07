@@ -7,7 +7,7 @@
 </head>
 <body>
 	<%
-		response.sendRedirect("/produto/listaProduto.jsf");
+		response.sendRedirect("/welcome.jsf");
 	%>
 
 <body>

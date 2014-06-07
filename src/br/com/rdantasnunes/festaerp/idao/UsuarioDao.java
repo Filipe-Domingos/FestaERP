@@ -15,4 +15,6 @@ import br.com.rdantasnunes.festaerp.modelo.Usuario;
  */
 public interface UsuarioDao extends Dao<Usuario> {
 
+	
+	boolean logar(Usuario usuario);
 }

@@ -1,35 +1,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head id="head">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet"
+		href="/resources/css/festa_erp.css" />
 	<title>Sistema Para Gestão de Festas ::Festa ERP::</title>
 </h:head>
 
 <h:body id="body">
-
+	
 	<f:view contentType="text/html">
-
-		<h:form styleClass="form_incluir">
-			<p:panelGrid columns="2">
-				<p:outputLabel value="#{msg['label.login']}" for="login_id" />
-				<p:inputText id="login_id" value="#{loginMB.usuario.login}"
-					size="15" label="#{msg['label.login']}" required="true">
-				</p:inputText>
-				<p:outputLabel value="#{msg['label.senha']}" for="senha_id" />
-				<p:password id="senha_id" value="#{loginMB.usuario.senha}" size="15"
-					label="#{msg['label.senha']}" required="true">
-				</p:password>
-			</p:panelGrid>
-			<div class="div_form_incluir">
-				<p:commandButton value="#{msg['button.entrar']}"
-					action="#{usuarioMB.entrar}" styleClass="btn btn-success" />
-			</div>
-		</h:form>
+		<div class="div_message_login">
+			<p:messages autoUpdate="true"/>
+		</div>
+		<div class="form_login">
+			<h:form>
+				<fieldset>
+					<legend title="Login"><p:outputLabel value="Acessar"/></legend>
+					<p:panelGrid columns="2">
+						<p:outputLabel value="#{msg['label.login']}" for="login_id" />
+						<p:inputText id="login_id" value="#{loginMB.usuario.login}"
+							size="15" label="#{msg['label.login']}" required="true">
+						</p:inputText>
+						<p:outputLabel value="#{msg['label.senha']}" for="senha_id" />
+						<p:password id="senha_id" value="#{loginMB.usuario.senha}"
+							size="15" label="#{msg['label.senha']}" required="true">
+						</p:password>
+					</p:panelGrid>
+					<div class="div_login_buton">
+						<p:commandButton value="#{msg['button.entrar']}" action="#{loginMB.entrar}"  />
+					</div>
+				</fieldset>
+			</h:form>
+		</div>
 	</f:view>
 </h:body>
 </html>

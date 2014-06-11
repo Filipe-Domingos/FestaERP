@@ -1,6 +1,6 @@
 package br.com.rdantasnunes.festaerp.idao;
 
-import br.com.rdantasnunes.festaerp.modelo.Venda;
+import br.com.rdantasnunes.festaerp.modelo.ItemVenda;
 
 /**
  * 
@@ -13,6 +13,6 @@ import br.com.rdantasnunes.festaerp.modelo.Venda;
  * PS: Esta interface herda da interface pai os metodos: List<T> find() / T find(Long id) / Long insert(T t) / void delete(T t)
  * 
  */
-public interface VendaDao extends Dao<Venda> {
+public interface ItemVendaDao extends Dao<ItemVenda> {
 
 }

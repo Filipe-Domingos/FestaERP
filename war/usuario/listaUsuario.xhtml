@@ -36,6 +36,11 @@
 					<p:column headerText="#{msg['label.usuario.admin']}">
 						<h:outputLabel value="#{usuario.admin?msg['label.admin.sim']:msg['label.admin.nao']}" />
 					</p:column>
+					
+					<p:column headerText="#{msg['label.usuario.caixa']}">
+						<h:outputText value="#{usuario.caixa.nome}" />
+					</p:column>
+					
 				</p:dataTable>
 
 				<h:panelGrid columns="2">

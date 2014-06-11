@@ -19,8 +19,10 @@ import javax.faces.model.ListDataModel;
 
 import org.apache.log4j.Logger;
 
+import br.com.rdantasnunes.festaerp.dao.CaixaDAOImpl;
 import br.com.rdantasnunes.festaerp.dao.UsuarioDAOImpl;
 import br.com.rdantasnunes.festaerp.idao.UsuarioDao;
+import br.com.rdantasnunes.festaerp.modelo.Caixa;
 import br.com.rdantasnunes.festaerp.modelo.Usuario;
 
 /**
@@ -62,6 +64,16 @@ public class UsuarioMB implements Serializable {
 	private Long idSelecionado;
 	
 	/**
+	 * Listagem dos caixas disponiveis no sistema
+	 */
+	private List<Caixa> caixas;
+	
+	/**
+	 * Id do Caixa deste usuario.
+	 */
+	private Long caixaId;
+	
+	/**
 	 * Mantem as usuarios apresentadas na listagem indexadas pelo id.
 	 * <strong>Importante:</strong> a consulta (query) no DataStore do App Engine pode retornar <i>dados antigos</i>, 
 	 * que ja foram removidos ou que ainda nao foram incluidos, devido a replicacao dos dados.
@@ -96,6 +108,7 @@ public class UsuarioMB implements Serializable {
 			
 			log.debug("Carregou a lista de usuarios ("+usuarios.size()+")");
 			
+			caixas = new CaixaDAOImpl().find();
 		} catch(Exception ex) {
 			log.error("Erro ao carregar a lista de usuarios.", ex);
 			addMessage(getMessageFromI18N("msg.erro.listar.usuario"), ex.getMessage(),FacesMessage.SEVERITY_ERROR);
@@ -114,6 +127,7 @@ public class UsuarioMB implements Serializable {
 	 */
 	public void reset() {
 		usuario = null;
+		caixaId = null;
 		idSelecionado = null;
 		confirmaSenha = null;
 	}
@@ -123,6 +137,7 @@ public class UsuarioMB implements Serializable {
 	 */
 	public void incluir(){
 		usuario = new Usuario();
+		caixaId = null;
 		confirmaSenha = null;
 		log.debug("Pronto pra incluir");
 	}
@@ -138,11 +153,14 @@ public class UsuarioMB implements Serializable {
 		if (usuario == null){
 			confirmaSenha = null;
 		}else{
+			if(usuario.getCaixa() != null)
+				caixaId = usuario.getCaixa().getId();
+			
 			confirmaSenha = usuario.getSenha();
 		}
 		log.debug("Pronto pra editar");
 	}
-
+	
 	/**
 	 * Operacao acionada pela tela de inclusao ou edicao, atraves do <code>commandButton</code> <strong>Salvar</strong>.
 	 * @return Se a inclusao/edicao foi realizada vai para listagem, senao permanece na mesma tela.
@@ -152,6 +170,11 @@ public class UsuarioMB implements Serializable {
 			if(confirmaSenha == null || !usuario.getSenha().equals(confirmaSenha)){
 				addMessage(getMessageFromI18N("msg.erro.senha_nao_confere.usuario"), null,FacesMessage.SEVERITY_ERROR);
 				return "";
+			}
+			if(caixaId != null){
+				Caixa caixa = new CaixaDAOImpl().find(caixaId);
+				usuario.setCaixa(caixa);
+				caixaId = null;
 			}
 			dao.save(usuario);
 			usuarios.put(usuario.getId(), usuario);
@@ -225,5 +248,21 @@ public class UsuarioMB implements Serializable {
 
 	public void setConfirmaSenha(String confirmaSenha) {
 		this.confirmaSenha = confirmaSenha;
+	}
+
+	public List<Caixa> getCaixas() {
+		return caixas;
+	}
+
+	public void setCaixas(List<Caixa> caixas) {
+		this.caixas = caixas;
+	}
+
+	public Long getCaixaId() {
+		return caixaId;
+	}
+
+	public void setCaixaId(Long caixaId) {
+		this.caixaId = caixaId;
 	}
 }

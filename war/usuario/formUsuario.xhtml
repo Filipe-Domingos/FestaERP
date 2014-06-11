@@ -41,6 +41,14 @@
 				<p:selectBooleanCheckbox id="admin_id" value="#{usuarioMB.usuario.admin}"
 					 label="#{msg['label.usuario.admin']}" required="true">
 				</p:selectBooleanCheckbox>
+				
+				<p:outputLabel for="caixa_id"
+					value="#{msg['label.usuario.caixa']}" />
+				
+				<p:selectOneMenu value="#{usuarioMB.caixaId}" id="caixa_id">
+					<f:selectItems value="#{usuarioMB.caixas}" var="cxs"
+						itemLabel="#{cxs.nome}" itemValue="#{cxs.id}" />
+				</p:selectOneMenu>
 
 			</p:panelGrid>
 		</p:fieldset>

@@ -1,9 +1,13 @@
 package br.com.rdantasnunes.festaerp.modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * 
@@ -16,6 +20,7 @@ import com.googlecode.objectify.annotation.Id;
  */
 @Entity
 public class Comanda extends SuperEntity<Comanda> implements Serializable {
+	
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,16 +30,37 @@ public class Comanda extends SuperEntity<Comanda> implements Serializable {
 	private Long numeroMesa;
 	
 	private String identificacaoResponsavel; //pode ser usado RG, telefone, cpf ou o que o estabelecimento quiser.
-
 	
+	private String nomePessoa;
+	
+	private String telefone;
+	
+	private Date dataAberturaDaComanda;
+	
+	private Key<Festa> festa_id;
+	@Ignore private Festa festa;
+	
+	private Key<Usuario> usuario_id;
+	@Ignore private Usuario usuario;
+	
+	@Index
+	private String cartaoBar; //A pessoa ao entrar recebe um cartao de consumação com um código de barras que será usado p registrar os débitos.
+
 	public Comanda() {
 		super();
 	}
 
-	public Comanda(Long numeroMesa, String identificacaoResponsavel) {
+	public Comanda(Festa festa, Usuario usuario, Long numeroMesa, String identificacaoResponsavel, String nomePessoa, 
+			String telefone, Date dataAberturaDaComanda,String cartaoBar) {
 		super();
 		this.numeroMesa = numeroMesa;
 		this.identificacaoResponsavel = identificacaoResponsavel;
+		this.nomePessoa = nomePessoa;
+		this.telefone = telefone;
+		this.dataAberturaDaComanda = dataAberturaDaComanda;
+		this.cartaoBar = cartaoBar;
+		setFesta(festa);
+		setUsuario(usuario);
 	}
 
 	public Long getId() {
@@ -59,6 +85,66 @@ public class Comanda extends SuperEntity<Comanda> implements Serializable {
 
 	public void setIdentificacaoResponsavel(String identificacaoResponsavel) {
 		this.identificacaoResponsavel = identificacaoResponsavel;
+	}
+
+	public Festa getFesta() {
+		if(this.festa == null && festa_id != null){
+			this.festa = (Festa)get(Festa.class,festa_id.getId());
+		}
+		return this.festa;
+	}
+
+	public void setFesta(Festa festa) {
+		this.festa = festa;
+		if(festa != null && festa.getId() != null){
+			this.festa_id = Key.create(Festa.class,festa.getId());
+		}
+	}
+
+	public Usuario getUsuario() {
+		if(this.usuario == null && usuario_id != null){
+			this.usuario = (Usuario)get(Usuario.class,usuario_id.getId());
+		}
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+		if(usuario != null && usuario.getId() != null){
+			this.usuario_id = Key.create(Usuario.class,usuario.getId());
+		}
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Date getDataAberturaDaComanda() {
+		return dataAberturaDaComanda;
+	}
+
+	public void setDataAberturaDaComanda(Date dataConsumo) {
+		this.dataAberturaDaComanda = dataConsumo;
+	}
+
+	public String getCartaoBar() {
+		return cartaoBar;
+	}
+
+	public void setCartaoBar(String cartaoBar) {
+		this.cartaoBar = cartaoBar;
+	}
+
+	public String getNomePessoa() {
+		return nomePessoa;
+	}
+
+	public void setNomePessoa(String nomePessoa) {
+		this.nomePessoa = nomePessoa;
 	}
 
 	@Override

@@ -14,11 +14,11 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.googlecode.objectify.Key;
 
-import br.com.rdantasnunes.festaerp.idao.VendaDao;
-import br.com.rdantasnunes.festaerp.modelo.Venda;
+import br.com.rdantasnunes.festaerp.idao.ItemVendaDao;
+import br.com.rdantasnunes.festaerp.modelo.ItemVenda;
 
 @Singleton
-public class VendaDAOImpl implements VendaDao, Serializable{
+public class ItemVendaDAOImpl implements ItemVendaDao, Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,18 +26,18 @@ public class VendaDAOImpl implements VendaDao, Serializable{
 	private Logger log;
 	
 	@Override
-	public List<Venda> find() {
+	public List<ItemVenda> find() {
 		log.info("Finding all vendas");
 		
 		//checks if the vendas are in the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 		@SuppressWarnings("unchecked")
-		List<Venda> vendas = (List<Venda>) syncCache.get( "VENDAS" );
+		List<ItemVenda> vendas = (List<ItemVenda>) syncCache.get( "ITEM_VENDAS" );
 		
 		if (vendas == null) {
 			log.info("Not found in cache");
-			vendas = ofy().load().type(Venda.class).list();
+			vendas = ofy().load().type(ItemVenda.class).list();
 		} else {
 			log.info("Using cache!");
 		}
@@ -49,25 +49,25 @@ public class VendaDAOImpl implements VendaDao, Serializable{
 	}
 
 	@Override
-	public Venda find(Long id) {
-		return ofy().load().type(Venda.class).id(id).now();
+	public ItemVenda find(Long id) {
+		return ofy().load().type(ItemVenda.class).id(id).now();
 	}
 
 	@Override
-	public Long save(Venda venda) {
+	public Long save(ItemVenda venda) {
 		log.info("Inserting a new venda");
 		
 		//invalidates the cache
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
-		syncCache.delete( "VENDAS" );
+		syncCache.delete( "ITEM_VENDAS" );
 		
-		Key<Venda> key = ofy().save().entity(venda).now();
+		Key<ItemVenda> key = ofy().save().entity(venda).now();
 		return key.getId();
 	}
 
 	@Override
-	public void delete(Venda venda) {
+	public void delete(ItemVenda venda) {
 		log.info("Deleting a new venda");
 		ofy().delete().entity(venda).now();
 	}

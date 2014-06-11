@@ -2,8 +2,10 @@ package br.com.rdantasnunes.festaerp.modelo;
 
 import java.io.Serializable;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
 /**
@@ -31,17 +33,21 @@ public class Usuario extends SuperEntity<Usuario> implements Serializable {
 	private String senha;
 	
 	private Boolean admin;
+	
+	private Key<Caixa> caixa_id;
+	@Ignore private Caixa caixa;
 
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(String nome, String login, String senha, Boolean admin) {
+	public Usuario(String nome, String login, String senha, Boolean admin, Caixa caixa) {
 		super();
 		this.nome = nome;
 		this.login = login;
 		this.senha = senha;
 		this.admin = admin;
+		setCaixa(caixa);
 	}
 
 	public Long getId() {
@@ -82,6 +88,20 @@ public class Usuario extends SuperEntity<Usuario> implements Serializable {
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+
+	public Caixa getCaixa() {
+		if(this.caixa == null && caixa_id != null){
+			this.caixa = (Caixa)get(Caixa.class,caixa_id.getId());
+		}
+		return this.caixa;
+	}
+
+	public void setCaixa(Caixa caixa) {
+		this.caixa = caixa;
+		if(caixa != null && caixa.getId() != null){
+			this.caixa_id = Key.create(Caixa.class,caixa.getId());
+		}
 	}
 
 	@Override

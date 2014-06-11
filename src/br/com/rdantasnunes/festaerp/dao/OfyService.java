@@ -6,7 +6,7 @@ import br.com.rdantasnunes.festaerp.modelo.Festa;
 import br.com.rdantasnunes.festaerp.modelo.Produto;
 import br.com.rdantasnunes.festaerp.modelo.Unidade;
 import br.com.rdantasnunes.festaerp.modelo.Usuario;
-import br.com.rdantasnunes.festaerp.modelo.Venda;
+import br.com.rdantasnunes.festaerp.modelo.ItemVenda;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
@@ -21,7 +21,7 @@ public class OfyService {
 		factory().register(Produto.class);
 		factory().register(Unidade.class);
 		factory().register(Usuario.class);
-		factory().register(Venda.class);
+		factory().register(ItemVenda.class);
 	}
 
 	/**

@@ -7,7 +7,6 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
-import com.googlecode.objectify.annotation.Index;
 
 /**
  * 
@@ -19,51 +18,36 @@ import com.googlecode.objectify.annotation.Index;
  * 
  */
 @Entity
-public class Venda extends SuperEntity<Venda> implements Serializable {
+public class ItemVenda extends SuperEntity<ItemVenda> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Long id;
 	
-	private Key<Festa> festa_id;
-	@Ignore private Festa festa;
-	
 	private Key<Produto> produto_id;
 	@Ignore private Produto produto;
-	
-	private Key<Caixa> caixa_id;
-	@Ignore private Caixa caixa;
-	
-	private Key<Usuario> usuario_id;
-	@Ignore private Usuario usuario;
 	
 	private Key<Comanda> comanda_id;//uma comanda pode ser atribuida a uma mesa, e entao o consumo da mesa sera lancado na comanda.
 	@Ignore private Comanda comanda;
 	
-	@Index
-	private Date dataVenda;
-
 	private Float quantidade;
 	
-	private Float valor;
+	private Float valor; //o valor vai ficar registrado para que a casa possa fazer promoções do tipo até 23hs tal bebida é um preço e depois disso é outro preço.
+	
+	private Date horaConsumo;
 
-	public Venda() {
+	public ItemVenda() {
 		super();
 	}
 
-	public Venda(Festa festa, Produto produto, Caixa caixa,
-			Usuario usuario, Comanda comanda, Date dataVenda, Float quantidade,
-			Float valor) {
+	public ItemVenda(Produto produto, Comanda comanda, Date horaConsumo, Float quantidade, Float valor) {
 		super();
-		setFesta(festa);
 		setProduto(produto);
-		setCaixa(caixa);
-		setUsuario(usuario);
 		setComanda(comanda);
-		this.dataVenda = dataVenda;
 		this.quantidade = quantidade;
 		this.valor = valor;
+		this.horaConsumo = horaConsumo;
 	}
 
 	public Long getId() {
@@ -72,20 +56,6 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Festa getFesta() {
-		if(this.festa == null && festa_id != null){
-			this.festa = (Festa)get(Festa.class,festa_id.getId());
-		}
-		return this.festa;
-	}
-
-	public void setFesta(Festa festa) {
-		this.festa = festa;
-		if(festa != null && festa.getId() != null){
-			this.festa_id = Key.create(Festa.class,festa.getId());
-		}
 	}
 
 	public Produto getProduto() {
@@ -102,34 +72,6 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 		}
 	}
 
-	public Caixa getCaixa() {
-		if(this.caixa == null && caixa_id != null){
-			this.caixa = (Caixa)get(Caixa.class,caixa_id.getId());
-		}
-		return this.caixa;
-	}
-
-	public void setCaixa(Caixa caixa) {
-		this.caixa = caixa;
-		if(caixa != null && caixa.getId() != null){
-			this.caixa_id = Key.create(Caixa.class,caixa.getId());
-		}
-	}
-
-	public Usuario getUsuario() {
-		if(this.usuario == null && usuario_id != null){
-			this.usuario = (Usuario)get(Usuario.class,usuario_id.getId());
-		}
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-		if(usuario != null && usuario.getId() != null){
-			this.usuario_id = Key.create(Usuario.class,usuario.getId());
-		}
-	}
-
 	public Comanda getComanda() {
 		if(this.comanda == null && comanda_id != null){
 			this.comanda = (Comanda)get(Comanda.class,comanda_id.getId());
@@ -142,14 +84,6 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 		if(comanda != null && comanda.getId() != null){
 			this.comanda_id = Key.create(Comanda.class,comanda.getId());
 		}
-	}
-
-	public Date getDataVenda() {
-		return dataVenda;
-	}
-
-	public void setDataVenda(Date dataVenda) {
-		this.dataVenda = dataVenda;
 	}
 
 	public Float getQuantidade() {
@@ -168,16 +102,23 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 		this.valor = valor;
 	}
 
+	public Date getHoraConsumo() {
+		return horaConsumo;
+	}
+
+	public void setHoraConsumo(Date horaConsumo) {
+		this.horaConsumo = horaConsumo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
 				+ ((comanda_id == null) ? 0 : comanda_id.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
-				+ ((dataVenda == null) ? 0 : dataVenda.hashCode());
-		result = prime * result
-				+ ((festa_id == null) ? 0 : festa_id.hashCode());
+				+ ((produto_id == null) ? 0 : produto_id.hashCode());
 		return result;
 	}
 
@@ -189,24 +130,22 @@ public class Venda extends SuperEntity<Venda> implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Venda other = (Venda) obj;
+		ItemVenda other = (ItemVenda) obj;
 		if (comanda_id == null) {
 			if (other.comanda_id != null)
 				return false;
 		} else if (!comanda_id.equals(other.comanda_id))
 			return false;
-		if (dataVenda == null) {
-			if (other.dataVenda != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!dataVenda.equals(other.dataVenda))
+		} else if (!id.equals(other.id))
 			return false;
-		if (festa_id == null) {
-			if (other.festa_id != null)
+		if (produto_id == null) {
+			if (other.produto_id != null)
 				return false;
-		} else if (!festa_id.equals(other.festa_id))
+		} else if (!produto_id.equals(other.produto_id))
 			return false;
 		return true;
 	}
-	
-	
 }
